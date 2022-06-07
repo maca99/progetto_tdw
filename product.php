@@ -7,13 +7,19 @@
 	$id= isset($_GET['product_code'])? $_GET['product_code'] : '';
 
 	$query='SELECT * FROM product WHERE id_prodotto = "' . mysqli_real_escape_string($id) .'"';
-	$result=$mysqli->query($query); 
-	$product=$result->fetch_assoc();
+	$oid=$mysqli->query($query); 
 
-	$body->setContent('title',"prodotto");
-	$body->setContent('nome',$product['nome']);
-	$body->setContent('prezzo',$product['prezzo']);
-	$body->setContent('descrizione_breve',$product['descrizione_breve']);
+	if (!$oid) {
+		// error
+	}
+	if ($oid->num_rows == 0) {
+		// item does not exist 
+	} 
+
+	$data = $oid->fetch_assoc();
+	foreach($data as $key => $value) {
+		$body->setContent($key, $value);
+	}
 
 	$body->close();
 ?>
