@@ -1,8 +1,9 @@
 <?php
-	//require "include/dbms.inc.php";
+	require "include/dbms.inc.php";
 	require "include/template2.inc.php";
 
-    $body= new template("dhtml/product.html");
+    $body= new Template("dhtml/product.html");
+
 
 	$id= isset($_GET['product_code'])? $_GET['product_code'] : '';
 
@@ -20,6 +21,7 @@
 	}
 
 
-
+	$body->setContent("nome","prodotto");
+	$body->setContent('prezzo','prodotto');
 	$body->close();
 ?>
