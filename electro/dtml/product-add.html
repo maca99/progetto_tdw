@@ -1,0 +1,73 @@
+<div class="page-title"> <i class="icon-custom-left"></i>
+    <h3>Form - <span class="semi-bold">Elements</span></h3>
+  </div>
+  <!-- BEGIN BASIC FORM ELEMENTS-->
+    <div class="row">
+        <div class="col-md-12">
+          <div class="grid simple">
+            <div class="grid-title no-border">
+              <h4>Add Product</span></h4>
+              <div class="tools"> <a href="javascript:;" class="collapse"></a> <a href="#grid-config" data-toggle="modal" class="config"></a> <a href="javascript:;" class="reload"></a> <a href="javascript:;" class="remove"></a> </div>
+            </div>
+            <form class="notify" method="POST" action="/progetto_tdw/product-add.php">
+              <input type="hidden" name="step" id="step" value="1">
+            <div class="grid-body no-border"> <br>
+              <div class="row">
+                <div class="col-md-8 col-sm-8 col-xs-8">
+                  <div class="form-group">
+                    <label class="form-label">Nome</label>
+                    <span class="help">e.g. "Computer, Auricolari..."</span>
+                    <div class="controls">
+                      <input type="text" name="nome" id="nome" class="form-control">
+                    </div>
+                  </div>
+                    <div class="form-group">
+          
+                        <label class="form-label">Prezzo</label>
+                        <span class="help">€€€</span>
+                        <div class="controls">
+                          <input type="text" name="prezzo" id="prezzo" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Descrizione breve</label>
+                      <span class="help"></span>
+                      <div class="controls">
+                        <textarea id="descrizione_breve" name="descrizione_breve" class="form-control" rows="10"></textarea>
+                    
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Descrizione</label>
+                      <span class="help"></span>
+                      <div class="controls">
+                        <textarea id="descrizione" name="descrizione" class="form-control" rows="10"></textarea>
+                    
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="form-label">Dettagli</label>
+                      <span class="help"></span>
+                      <div class="controls">
+                        <textarea id="dettagli" name="dettagli" class="form-control" rows="10"></textarea>
+                    
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                    
+                      <div class="controls">
+                        <button type="submit">Add</button>
+
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+<!-- END BASIC FORM ELEMENTS-->	 
