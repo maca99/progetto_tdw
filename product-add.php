@@ -4,7 +4,8 @@
     
     require "include/template2.inc.php";
     require "include/dbms.inc.php";
-    require "include/auth.inc.php";
+
+    $main = new Template("dhtml/blank.html");
 
 
     if (!isset($_REQUEST['step'])) {
@@ -19,21 +20,18 @@
             break;
         case 1: // transaction
 
-            $oid = $mysqli->query("INSERT INTO news VALUES (
-                    NULL,
-                    '{$_SESSION['user']['username']}',
+            $oid = $mysqli->query("INSERT INTO prodotto VALUES (
+                NULL,
                     '{$_REQUEST['nome']}',
                     '{$_REQUEST['prezzo']}',
-                    '{$_REQUEST['descrizione_breve']}',
-                    '{$_REQUEST['descrizione']}',
-                    '{$_REQUEST['dettagli']}')
-                ");
+                    '{$_REQUEST['descrizione']}')"
+                );
+                
             if (!$oid) {
                 $main->setContent("message", "10");
             } else {
                 $main->setContent("message", "00");
             }
-
             break;
 
 
