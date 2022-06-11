@@ -12,7 +12,7 @@
         $_REQUEST['step'] = 0;
     }
 
-    $form = new Template("electro/dtml/product-add.html");
+    $form = new Template("product-add.html");
 
     switch ($_REQUEST['step']) { 
         case 0: // form emission
