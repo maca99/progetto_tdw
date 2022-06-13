@@ -20,8 +20,5 @@
 		$body->setContent($key, $value);
 	}
 
-
-	$body->setContent("nome","prodotto");
-	$body->setContent('prezzo','prodotto');
-	$body->close();
+$body->close();
 ?>
