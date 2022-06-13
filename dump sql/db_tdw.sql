@@ -97,13 +97,13 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`categoria_has_prodotto` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`categoria_has_prodotto` (
-  `categoria_idcategoria` INT NOT NULL,
+  `id_categoria` INT NOT NULL,
   `prodotto_idprodotto` INT NOT NULL,
   PRIMARY KEY (`categoria_idcategoria`, `prodotto_idprodotto`),
   INDEX `fk_categoria_has_prodotto_prodotto1_idx` (`prodotto_idprodotto` ASC) VISIBLE,
-  INDEX `fk_categoria_has_prodotto_categoria1_idx` (`categoria_idcategoria` ASC) VISIBLE,
+  INDEX `fk_categoria_has_prodotto_categoria1_idx` (`id_categoria` ASC) VISIBLE,
   CONSTRAINT `fk_categoria_has_prodotto_categoria1`
-    FOREIGN KEY (`categoria_idcategoria`)
+    FOREIGN KEY (`id_categoria`)
     REFERENCES `mydb`.`categoria` (`idcategoria`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
@@ -166,16 +166,16 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`immagine`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`immagine` ;
+DROP TABLE IF EXISTS `mydb`.`immagine_prodotto` ;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`immagine` (
-  `idimmagine` INT NOT NULL,
-  `prodotto_idprodotto` INT NOT NULL,
-  `immagine` BLOB(1000) NULL,
-  PRIMARY KEY (`idimmagine`, `prodotto_idprodotto`),
-  INDEX `fk_immagine_prodotto1_idx` (`prodotto_idprodotto` ASC) VISIBLE,
+CREATE TABLE IF NOT EXISTS `mydb`.`immagine_prodotto` (
+  `idmmagine` INT NOT NULL,
+  `idprodotto` INT NOT NULL,
+  `immagine` VARCHAR(10) NULL,
+  PRIMARY KEY (`idmmagine`, `idprodotto`),
+  INDEX `fk_immagine_prodotto1_idx` (`idprodotto` ASC) VISIBLE,
   CONSTRAINT `fk_immagine_prodotto1`
-    FOREIGN KEY (`prodotto_idprodotto`)
+    FOREIGN KEY (`idprodotto`)
     REFERENCES `mydb`.`prodotto` (`idprodotto`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)

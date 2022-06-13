@@ -8,8 +8,13 @@
 
 	$id= isset($_GET['product_code'])? $_GET['product_code'] : '';
 
-	$oid=$mysqli->query("SELECT * FROM `prodotto` WHERE idprodotto= $id"); 
-	
+	$oid=$mysqli->query("SELECT * FROM `prodotto` WHERE idprodotto= $id ");
+
+	if(mysqli_num_rows($oid) != 1){
+		echo("prodtto non trovato");
+		exit();
+	}
+
 	$data = $oid->fetch_assoc();
 	foreach($data as $key => $value) {
 		$body->setContent($key, $value);
