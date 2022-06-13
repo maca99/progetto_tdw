@@ -4,14 +4,57 @@
     
     require "include/template2.inc.php";
     require "include/dbms.inc.php";
-    require "include/auth.inc.php";
+
+    $main = new Template("dhtml/blank.html");
 
 
     if (!isset($_REQUEST['step'])) {
         $_REQUEST['step'] = 0;
     }
 
-    $form = new Template("electro/dtml/product-add.html");
+    $form = new Template("product-add.html");
+
+    if(isset($_POST["submit"])){
+
+        $b = getimagesize($_FILES["userImage"]["tmp_name"]);
+
+        //Check if the user has selected an image
+
+        if($b !== false){
+        
+            //Get the contents of the image
+
+            $file = $_FILES['userImage']['tmp_name'];
+            $image = addslashes(file_get_contents($file));
+            
+            //Insert the image into the database
+            $oid = $mysqli->query("INSERT into prodotto (image) VALUES ('$image')");
+            if($query){
+                echo "File uploaded successfully.";
+            }else{
+                echo "File upload failed.";
+            } 
+        }else{
+            echo "Please select an image to upload.";
+        }
+    }
+
+    if(!empty($_GET['id'])){
+
+        //Get the image from the database
+        $oid = $mysqli->query("SELECT image FROM prodotto WHERE id = {$_GET['id']}");
+        
+        if($res->num_rows > 0){
+            $img = $res->fetch_assoc();
+            
+            //Render the image
+            header("Content-type: image/jpg"); 
+            echo $img['image']; 
+        }else{
+            echo 'Image not found...';
+        }
+    }
+
 
     switch ($_REQUEST['step']) { 
         case 0: // form emission
@@ -19,28 +62,23 @@
             break;
         case 1: // transaction
 
-            $oid = $mysqli->query("INSERT INTO news VALUES (
-                    NULL,
-                    '{$_SESSION['user']['username']}',
+            $oid = $mysqli->query("INSERT INTO prodotto VALUES (
+                0,
                     '{$_REQUEST['nome']}',
                     '{$_REQUEST['prezzo']}',
-                    '{$_REQUEST['descrizione_breve']}',
-                    '{$_REQUEST['descrizione']}',
-                    '{$_REQUEST['dettagli']}')
-                ");
+                    '{$_REQUEST['descrizione']}')"
+                );
+                
             if (!$oid) {
                 $main->setContent("message", "10");
             } else {
                 $main->setContent("message", "00");
             }
-
             break;
 
 
 
     }
-
-
 
     $main->setContent("body", $form->get());
     $main->close();
