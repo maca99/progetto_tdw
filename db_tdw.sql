@@ -56,7 +56,7 @@ ENGINE = InnoDB;
 -- Table `mydb`.`prodotto`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`prodotto` (
-  `idprodotto` INT NOT NULL,
+  `idprodotto` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
   `prezzo` VARCHAR(45) NULL,
   `descrizione` TEXT(100) NULL,
