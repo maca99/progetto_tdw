@@ -35,7 +35,7 @@
             <i class="fa fa-star"></i>
             <i class="fa fa-star-o"></i>
         </div>
-        <a class="review-link" href="#">10 Review(s) | Add your review</a>
+        <a class="review-link" href="#">[num_rew]Review(s) | Add your review</a>
     </div>
     <div>
         <h3 class="product-price"><[prezzo]> <del class="product-old-price"><[prezzo_vecchio]></del></h3>
@@ -61,7 +61,7 @@
         <div class="qty-label">
             Qty
             <div class="input-number">
-                <input type="number">
+                <input type="number" min="1" max="100" id="quantity"  >
                 <span class="qty-up">+</span>
                 <span class="qty-down">-</span>
             </div>
@@ -76,8 +76,9 @@
 
     <ul class="product-links">
         <li>Category:</li>
-        <li><a href="#">Headphones</a></li>
-        <li><a href="#">Accessories</a></li>
+        <[foreach]>
+        <li><a href="#"><[category]></a></li>
+        <[/foreach]>
     </ul>
 
     <ul class="product-links">
@@ -279,10 +280,10 @@
                 <!-- Review Form -->
                 <div class="col-md-3">
                     <div id="review-form">
-                        <form class="review-form">
-                            <input class="input" type="text" placeholder="Your Name">
-                            <input class="input" type="email" placeholder="Your Email">
-                            <textarea class="input" placeholder="Your Review"></textarea>
+                        <form class="review-form" method="post" action="review.php">
+                            <input class="input" name="name" type="text" placeholder="Your Name">
+                            <input class="input" name="email" type="email" placeholder="Your Email">
+                            <textarea class="input" name="text" placeholder="Your Review"></textarea>
                             <div class="input-rating">
                                 <span>Your Rating: </span>
                                 <div class="stars">
