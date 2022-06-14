@@ -5,8 +5,7 @@
 	$main= new Template("dhtml/blank.html");
     $body= new Template("dhtml/product.html");
 
-
-	//$id= isset($_GET['product_code'])? $_GET['product_code'] : '';
+	$id= isset($_GET['product_code'])? $_GET['product_code'] : '';
 
 	$oid=$mysqli->query("SELECT * FROM `prodotto` WHERE idprodotto= $id ");
 
@@ -19,6 +18,15 @@
 	foreach($data as $key => $value) {
 		$body->setContent($key, $value);
 	}
+
+	$result=$mysqli->query("SELECT idimmagine FROM `immagine` WHERE  prodotto_idprodotto = $id");
+	 while($row = mysqli_fetch_array($result)){
+        $id_immagine = $row['idimmagine'];
+		$tag="<img src=show.php?id=$id_immagine>";
+		$tag2="<img src=show.php?id=$id_immagine>";
+		$body->setContent("immagini",$tag);
+        $body->setContent("immagine",$tag2);
+    }
 
 
 	$main->setContent("body",$body->get());
