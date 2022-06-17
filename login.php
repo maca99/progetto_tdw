@@ -4,36 +4,31 @@
     require "include/dbms.inc.php";
 	require "include/template2.inc.php";
 
-    $errorMsg="";
+    $main=new Template('dhtml/blank-min.html');
+    $body=new Template('dhtml/login.html');
+
 
     if(isset($_POST['login'])) {
 
         $email = $_POST["email"];
-        $username = $_POST["username"];
         $password = $_POST["password"];
 
 
-        $oid=$mysqli->query("SELECT * FROM  WHERE email='$email' AND assword='$password'");
-        $result=mysqli_query($mysqli,$oid);
-        $conta=mysqli_num_rows($result);
+        $oid=$mysqli->query("SELECT * FROM 'cliente' WHERE email='$email' AND password='$password'");
+        if(mysqli_num_rows($oid)!=1){
 
-        if($conta>=1){
-            session_start();
             $_SESSION['logged'] = 1;
             $_SESSION['username']=$username;
-            header("Location: /index.php");
+             //header("location: /index.php");
+            $errors="login effettuato";
 
-        } else {
+        }else {
+            $body->setContent("errors","Credenziali errate");
 
-            echo "Identificazione non riuscita: nome utente o password errati <br />";
-            echo "Torna a pagina di <a href=\"login.htm\">login</a>";
-        
         }
 
     } else {
-    
-        $main=new Template('dhtml/blank-min.html');
-        $body=new Template('dhtml/login.html');
+
         $main->setContent("body",$body->get());
         $main->close();
 
