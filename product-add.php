@@ -6,13 +6,12 @@
     require "include/dbms.inc.php";
 
     $main = new Template("dhtml/blank.html");
+    $body = new Template("dhtml/product-add.html");
 
 
     if (!isset($_REQUEST['step'])) {
         $_REQUEST['step'] = 0;
     }
-
-    $form = new Template("product-add.html");
 
     if(isset($_POST["submit"])){
 
@@ -28,7 +27,7 @@
             $image = addslashes(file_get_contents($file));
             
             //Insert the image into the database
-            $oid = $mysqli->query("INSERT into prodotto (image) VALUES ('$image')");
+            $oid = $mysqli->query("INSERT into immagine (immagine) VALUES ('$image')");
             if($query){
                 echo "File uploaded successfully.";
             }else{
@@ -80,7 +79,7 @@
 
     }
 
-    $main->setContent("body", $form->get());
+    $main->setContent("body", $body->get());
     $main->close();
 
 ?>

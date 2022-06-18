@@ -5,7 +5,7 @@
 
     $oid=$mysqli->query("SELECT idimmagine FROM `immagine` WHERE  idimmagine=$id");
 
-    while ($row = mysql_fetch_array($result)){
+    while ($row = mysqli_fetch_array($result)){
         $id = $row['idimmagine'];
         echo "<a href=\"show.php?id=".$id."\"> </a><br />";
     }
