@@ -8,30 +8,27 @@
     $body=new Template('dhtml/login.html');
 
 
-    if(isset($_POST['login'])) {
+    if(isset($_POST['submit']) && $_POST['submit']=='register' ) {
 
         $email = $_POST["email"];
         $password = $_POST["password"];
 
 
-        $oid=$mysqli->query("SELECT * FROM 'cliente' WHERE email='$email' AND password='$password'");
-        if(mysqli_num_rows($oid)!=1){
-
-            $_SESSION['logged'] = 1;
-            $_SESSION['username']=$username;
-             //header("location: /index.php");
-            $errors="login effettuato";
-
+        $result=$mysqli->query("SELECT * FROM utente WHERE email='".$_POST['email']."' AND password='".$_POST['password']."' ");
+        if(mysqli_num_rows($result) != 1){
+           $body->setContent("errors","Credenziali errate");
         }else {
-            $body->setContent("errors","Credenziali errate");
-
+            $_SESSION['logged'] = 1;
+            //$_SESSION['username']=$username;
+            
+            $body->setContent("errors","sei loggato");
+           // header("location: dhtml\product.html");
         }
 
-    } else {
+    } 
 
-        $main->setContent("body",$body->get());
-        $main->close();
+    $main->setContent("body",$body->get());
+    $main->close();
 
-    }
 
 ?>

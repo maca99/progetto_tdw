@@ -3,68 +3,59 @@
 	require "include/dbms.inc.php";
 	require "include/template2.inc.php";
 
-	$username = (isset($_POST['username'])) ? trim($_POST['username']) : '';
 	$password = (isset($_POST['password'])) ? trim($_POST['password']) : '';
-	$first_name = (isset($_POST['first_name'])) ? trim($_POST['first_name']) : '';
-	$last_name = (isset($_POST['last_name'])) ? trim($_POST['last_name']) : '';
+	$cognome = (isset($_POST['nome'])) ? trim($_POST['nome']) : '';
+	$nome = (isset($_POST['cognome'])) ? trim($_POST['cognome']) : '';
 	$email = (isset($_POST['email'])) ? trim($_POST['email']) : '';
+	$main=new Template('dhtml/blank-min.html');
+	$body=new Template('dhtml/register.html');
 
 	if(isset($_POST['submit'])&& $_POST['submit']== 'Register')
 	{
 		$errors = array();
 		//verifica che i campi obbligatori siano stati compilati
-		if(empty($username)){
-			$errors[]='Username non inserita.';
-		}
-
-		//controlla se il nome utente è già registrato
-		$oid=$mysqli->query("SELECT username FROM utente WHERE username = $username");
-		if(mysqli_num_rows($oid)>0)
-		{
-			$errors[]='This username already exists';
-			$username='';
-		}
-		mysqli_free_result($oid);
+		if(empty($email)){
+			$errors['email']='Email non inserita.';
+		}else{//controlla se l'email sia già inserita
+			$oid2=$mysqli->query("SELECT * FROM utente WHERE email='".$_POST['email']."' ");
+			if(mysqli_num_rows($oid2) > 0)
+			{
+				header("location: login.php");
+			}
+		}	
+		
 
 		if(empty($password)){
-			$errors[]='Password non inserita.';
+			$errors['password']='Password non inserita.';
 		}
-		if(empty($first_name)){
-			$errors[]='Nome non inserito.';
+		if(empty($nome)){
+			$errors['nome']='Nome non inserito.';
 		}
-		if(empty($last_name)){
-			$errors[]='Cognome non inserito.';
-		}
-		if(empty($email)){
-			$errors[]='Email non inserita.';
+		if(empty($cognome)){
+			$errors['cognome']='Cognome non inserito.';
 		}
 
 		if(count($errors) > 0){
-			header("location: /dhtml/400.html");
+			foreach($errors as $key=>$error){
+				$body->setContent($key, $error);
+				$body->setContent("errors", "ert");
+			}
 		}else{
 			//quando va tutto bene
-			$oid=$mysqli->query("INSERT INTO utente (id_user,username ,email, password, first_name , last_name)
+			$oid=$mysqli->query("INSERT INTO utente ( email, password, nome , cognome)
 				VALUES 
-					(NULL,$username, $email, $password, $first_name, $last_name)");
+					('".$email."','".$password."','".$nome."','".$cognome."') ");
 			
-			$user_id = $mysqli->insert_id();
 
 			/* aggiunta di altre informazioni dell'utente */
 
-
-
 			/* salvataggio dati nella sessione */
 			$_SESSION['logged'] = 1;
-			$_SESSION['username']=$username;
-			header("location: /index.php");
+			$_SESSION['email']=$email;
+			//header("location: index.php");
 		}
-	}else{
-		$main=new Template('dhtml/blank-min.html');
-		$body=new Template('dhtml/register.html');
-		$main->setContent("body",$body->get());
-		$main->close();
-
 	}
-
+	$main->setContent("body",$body->get());
+	$main->close();
 
 ?>
