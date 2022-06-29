@@ -4,8 +4,8 @@
 	require "include/template2.inc.php";
 
 	$password = (isset($_POST['password'])) ? trim($_POST['password']) : '';
-	$cognome = (isset($_POST['nome'])) ? trim($_POST['nome']) : '';
-	$nome = (isset($_POST['cognome'])) ? trim($_POST['cognome']) : '';
+	//$cognome = (isset($_POST['nome'])) ? trim($_POST['nome']) : '';
+	//$nome = (isset($_POST['cognome'])) ? trim($_POST['cognome']) : '';
 	$email = (isset($_POST['email'])) ? trim($_POST['email']) : '';
 	$main=new Template('dhtml/blank-min.html');
 	$body=new Template('dhtml/register.html');
@@ -28,12 +28,12 @@
 		if(empty($password)){
 			$errors['password']='Password non inserita.';
 		}
-		if(empty($nome)){
+		/*if(empty($nome)){
 			$errors['nome']='Nome non inserito.';
 		}
 		if(empty($cognome)){
 			$errors['cognome']='Cognome non inserito.';
-		}
+		}*/
 
 		if(count($errors) > 0){
 			foreach($errors as $key=>$error){
@@ -42,9 +42,9 @@
 			}
 		}else{
 			//quando va tutto bene
-			$oid=$mysqli->query("INSERT INTO utente ( email, password, nome , cognome)
+			$oid=$mysqli->query("INSERT INTO utente ( email, password)
 				VALUES 
-					('".$email."','".$password."','".$nome."','".$cognome."') ");
+					('".$email."','".$password."') ");
 			
 
 			/* aggiunta di altre informazioni dell'utente */
