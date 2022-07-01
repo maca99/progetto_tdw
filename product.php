@@ -10,7 +10,7 @@
 	$oid=$mysqli->query("SELECT * FROM `prodotto` WHERE idprodotto= $id ");
 
 	if(mysqli_num_rows($oid) != 1){
-		echo("prodtto non trovato");
+		echo("prodotto non trovato");
 		exit();
 	}
 

@@ -45,28 +45,30 @@
 						<li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
 					</ul>
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+						<li><a href="#"><i class="fa fa-dollar"></i> EUR</a></li>
+						<li><a href="./login.php"><i class="fa fa-user-o"></i><[login]></a></li>
 					</ul>
 				</div>
 			</div>
 			<!-- /TOP HEADER -->
-            <!-- MAIN HEADER -->
-            <div id="header">
-                <!-- container -->
-                <div class="container">
-                    <!-- row -->
-                    <div class="row">
-                        <!-- LOGO -->
-                        <div class="col-md-3">
-                            <div class="header-logo">
-                                <a href="./index.php" class="logo">
-                                    <img src="dhtml\img\logo.png" alt="">
-                                </a>
-                            </div>
-                        </div>
-                        <!-- /LOGO -->
-                        						<!-- SEARCH BAR -->
+
+			<!-- MAIN HEADER -->
+			<div id="header">
+				<!-- container -->
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<!-- LOGO -->
+						<div class="col-md-3">
+							<div class="header-logo">
+								<a href="./index.php" class="logo">
+									<img src="dhtml\img\logo.png" alt="">
+								</a>
+							</div>
+						</div>
+						<!-- /LOGO -->
+
+						<!-- SEARCH BAR -->
 						<div class="col-md-6">
 							<div class="header-search">
 								<form>
@@ -82,26 +84,135 @@
 						</div>
 						<!-- /SEARCH BAR -->
 
+						<!-- ACCOUNT -->
+						<div class="col-md-3 clearfix">
+							<div class="header-ctn">
+								<!-- Wishlist -->
+								<div>
+									<a href="#">
+										<i class="fa fa-heart-o"></i>
+										<span>Your Wishlist</span>
+										<div class="qty">2</div>
+									</a>
+								</div>
+								<!-- /Wishlist -->
+
+								<!-- Cart -->
+								<div class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+										<i class="fa fa-shopping-cart"></i>
+										<span>Your Cart</span>
+										<input type="number" class="qty" value="<?= $row['product_qty'] ?>">
+										<div class="qty">[quantita]</div>
+									</a>
+									<div class="cart-dropdown">
+										<div class="cart-list">
+										<div class="cart-summary">
+											<small>[num_product] Item(s) selected</small>
+											<h5>SUBTOTAL: [total]</h5>
+										</div>
+										<div class="cart-btns">
+											<a href="./cart.php">View Cart</a>
+											<a href="./checkout.php">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+										</div>
+									</div>
+								</div>
+								<!-- /Cart -->
+
+								<!-- Menu Toogle -->
+								<div class="menu-toggle">
+									<a href="#">
+										<i class="fa fa-bars"></i>
+										<span>Menu</span>
+									</a>
+								</div>
 								<!-- /Menu Toogle -->
 							</div>
 						</div>
 						<!-- /ACCOUNT -->
 					</div>
-                    <div class="section">
-                        <!-- container -->
-                        <div class="container">
-                            <!-- row -->
-                        
+					<!-- row -->
+				</div>
+				<!-- container -->
+			</div>
+			<!-- /MAIN HEADER -->
+		</header>
+		<!-- /HEADER -->
 
-            <[body]>
+		<!-- NAVIGATION -->
+		<nav id="navigation">
+			<!-- container -->
+			<div class="container">
+				<!-- responsive-nav -->
+				<div id="responsive-nav">
+					<!-- NAV -->
+					<ul class="main-nav nav navbar-nav">
+						<li><a href="index.php">Home</a></li> <!-- class="active" per farlo evidenziare-->
+						<li><a href="./dhtml/store.html">Offerte Speciali</a></li>
+						<li><a href="./dhtml/store.html">Categorie</a></li>
+						<li><a href="./dhtml/store.html">Laptops</a></li>
+						<li><a href="./dhtml/store.html">Smartphones</a></li>
+						<li><a href="./dhtml/store.html">Fotocamere</a></li>
+						<li><a href="./dhtml/store.html">Accessori</a></li>
+					</ul>
+					<!-- /NAV -->
+				</div>
+				<!-- /responsive-nav -->
+			</div>
+			<!-- /container -->
+		</nav>
+		<!-- /NAVIGATION -->	                       
 
+	<!-- SECTION -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				<[body]>
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /SECTION -->
 
-                    <!-- /row -->
-                </div>
-                <!-- /container -->
-            </div>
-            <!-- /SECTION -->
-
+			<!-- NEWSLETTER -->
+			<div id="newsletter" class="section">
+				<!-- container -->
+				<div class="container">
+					<!-- row -->
+					<div class="row">
+						<div class="col-md-12">
+							<div class="newsletter">
+								<p>Sign Up for the <strong>NEWSLETTER</strong></p>
+								<form>
+									<input class="input" type="email" placeholder="Enter Your Email">
+									<button class="newsletter-btn"><i class="fa fa-envelope"></i> Subscribe</button>
+								</form>
+								<ul class="newsletter-follow">
+									<li>
+										<a href="#"><i class="fa fa-facebook"></i></a>
+									</li>
+									<li>
+										<a href="#"><i class="fa fa-twitter"></i></a>
+									</li>
+									<li>
+										<a href="#"><i class="fa fa-instagram"></i></a>
+									</li>
+									<li>
+										<a href="#"><i class="fa fa-pinterest"></i></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- /row -->
+				</div>
+				<!-- /container -->
+			</div>
+			<!-- /NEWSLETTER -->
+			
 		<!-- FOOTER -->
 		<footer id="footer">
 			<!-- top footer -->
