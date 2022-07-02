@@ -56,7 +56,8 @@
 
 			$result=$mysqli->query("SELECT idimmagine FROM `immagine` WHERE  prodotto_idprodotto = $id LIMIT 1");
 			if(mysqli_num_rows($result)!=1){
-				echo("prodotto senza immagine");
+				$img="<img src='dhtml/img/product02.png'>";
+                $main->setContent("immagine",$img);
 				//prodotto senza immagine
 				exit();
 			}else{
