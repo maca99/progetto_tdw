@@ -35,58 +35,39 @@
 
         }
 
-        function show($name, $data, $pars) {
-            global 
-                $mysqli;
-            
-            $main = new Template("skins/revision/dtml/slider.html");
 
-            $oid = $mysqli->query("SELECT * FROM slider");
-
-            if (!$oid) {
-                echo "Error {$mysqli->errno}: {$mysqli->error}"; exit;
-            } 
-
-            $data = $oid->fetch_all(MYSQLI_ASSOC);
-
-            foreach($data as $slide) {
-                
-                $template = new Template("skins/revision/dtml/slide_{$slide['type']}.html");
-                $template->setContent("title", $slide['title']);
-                $template->setContent("subtitle", $slide['subtitle']);
-                $main->setContent("item", $template->get());
-
-            }
-            
-            return $main->get();
-
-        }
-
-        function report($name, $data, $pars) {
+        function product_icon($id){
 
             global $mysqli;
 
-            $report = new Template("skins/webarch/dtml/report.html");
-            $report->setContent("name", $pars['name']);
+			$main= new Template("dhtml/prodotto_index.html");
 
-            $oid = $mysqli->query("SELECT {$pars['fields']} FROM {$pars['table']}");
-            if (!$oid) {
-                // error
-            }
-            do {
-                $data = $oid->fetch_assoc();
-                if ($data) {
-                    foreach($data as $key => $value) {
-                        $report->setContent($key, $value);
-                    }
-                }
+			$oid=$mysqli->query("SELECT * FROM `prodotto` WHERE idprodotto= $id ");
 
-            } while ($data);
+			if(mysqli_num_rows($oid) != 1){
+				echo("prodotto non trovato");
+				exit();
+			}
 
-            return $report->get();
+			$data = $oid->fetch_assoc();
+			foreach($data as $key => $value) {
+				$main->setContent($key, $value);
+			}
+
+			$result=$mysqli->query("SELECT idimmagine FROM `immagine` WHERE  prodotto_idprodotto = $id LIMIT 1");
+			if(mysqli_num_rows($result)!=1){
+				echo("prodotto senza immagine");
+				//prodotto senza immagine
+				exit();
+			}else{
+				while($row = mysqli_fetch_array($result)){
+					$tag=$row['idimmagine'];
+					$img="<img src=show.php?id=$tag>";
+					$main->setContent("immagine",$img);
+				}
+			}
+		return $main->get();
         }
-
-
     }
 
 ?>
