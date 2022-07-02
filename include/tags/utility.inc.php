@@ -42,7 +42,7 @@
 
 			$main= new Template("dhtml/prodotto_index.html");
 
-			$oid=$mysqli->query("SELECT * FROM `prodotto` WHERE idprodotto= $id ");
+			$oid=$mysqli->query("SELECT * FROM `prodotto` WHERE id_prodotto= $id ");
 
 			if(mysqli_num_rows($oid) != 1){
 				echo("prodotto non trovato");
@@ -68,6 +68,7 @@
 			}
 		return $main->get();
         }
+
     }
 
 ?>

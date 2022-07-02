@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Creato il: Giu 29, 2022 alle 08:56
+-- Creato il: Lug 02, 2022 alle 06:40
 -- Versione del server: 8.0.27
 -- Versione PHP: 7.4.26
 
@@ -31,25 +31,19 @@ DROP TABLE IF EXISTS `categoria`;
 CREATE TABLE IF NOT EXISTS `categoria` (
   `idcategoria` int NOT NULL,
   `nome` varchar(45) DEFAULT NULL,
-  `id_super` int NOT NULL,
   PRIMARY KEY (`idcategoria`),
   UNIQUE KEY `idcategoria` (`idcategoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
--- --------------------------------------------------------
-
 --
--- Struttura della tabella `categoria_has_prodotto`
+-- Dump dei dati per la tabella `categoria`
 --
 
-DROP TABLE IF EXISTS `categoria_has_prodotto`;
-CREATE TABLE IF NOT EXISTS `categoria_has_prodotto` (
-  `categoria_idcategoria` int NOT NULL,
-  `prodotto_idprodotto` int NOT NULL,
-  PRIMARY KEY (`categoria_idcategoria`,`prodotto_idprodotto`),
-  KEY `fk_categoria_has_prodotto_prodotto1_idx` (`prodotto_idprodotto`),
-  KEY `fk_categoria_has_prodotto_categoria1_idx` (`categoria_idcategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+INSERT INTO `categoria` (`idcategoria`, `nome`) VALUES
+(1, 'Laptops'),
+(2, 'Smartphone'),
+(3, 'Fotocamere'),
+(4, 'Accessori');
 
 -- --------------------------------------------------------
 
@@ -64,6 +58,7 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `cognome` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `città` varchar(15) NOT NULL,
   `stato` varchar(15) NOT NULL,
+  `codice_fiscale` varchar(16) NOT NULL,
   PRIMARY KEY (`idCliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -71,8 +66,21 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 -- Dump dei dati per la tabella `cliente`
 --
 
-INSERT INTO `cliente` (`idCliente`, `nome`, `cognome`, `città`, `stato`) VALUES
-(1, 'matteo', 'cavasinni', '', '');
+INSERT INTO `cliente` (`idCliente`, `nome`, `cognome`, `città`, `stato`, `codice_fiscale`) VALUES
+(1, 'matteo', 'cavasinni', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `color`
+--
+
+DROP TABLE IF EXISTS `color`;
+CREATE TABLE IF NOT EXISTS `color` (
+  `id_color` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(25) NOT NULL,
+  PRIMARY KEY (`id_color`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -184,21 +192,43 @@ CREATE TABLE IF NOT EXISTS `ordine_has_prodotto` (
 
 DROP TABLE IF EXISTS `prodotto`;
 CREATE TABLE IF NOT EXISTS `prodotto` (
-  `idprodotto` int NOT NULL,
+  `id_prodotto` int NOT NULL,
   `nome` varchar(45) DEFAULT NULL,
   `prezzo` varchar(45) DEFAULT NULL,
   `descrizione_breve` text,
   `descrizione` varchar(45) DEFAULT NULL,
   `dettagli` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idprodotto`)
+  `data` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_categoria` int DEFAULT NULL,
+  PRIMARY KEY (`id_prodotto`),
+  KEY `id_categoria` (`id_categoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dump dei dati per la tabella `prodotto`
 --
 
-INSERT INTO `prodotto` (`idprodotto`, `nome`, `prezzo`, `descrizione_breve`, `descrizione`, `dettagli`) VALUES
-(1, 'fdmnmdt', '323', 'tghhyd', 'gfhhg', 'hgdhghg');
+INSERT INTO `prodotto` (`id_prodotto`, `nome`, `prezzo`, `descrizione_breve`, `descrizione`, `dettagli`, `data`, `id_categoria`) VALUES
+(1, 'hp laptop', '430', 'laptop economico', 'laptop economico', 'laptop economico', '2022-07-02 07:00:15', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `prodotto_varianti`
+--
+
+DROP TABLE IF EXISTS `prodotto_varianti`;
+CREATE TABLE IF NOT EXISTS `prodotto_varianti` (
+  `varianti_id` int NOT NULL AUTO_INCREMENT,
+  `id_prodotto` int NOT NULL,
+  `color_id` int NOT NULL,
+  `size_id` int NOT NULL,
+  `disponibilità` int UNSIGNED NOT NULL,
+  PRIMARY KEY (`varianti_id`),
+  KEY `colro_id` (`color_id`),
+  KEY `size_id` (`size_id`),
+  KEY `id_prodotto` (`id_prodotto`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -234,6 +264,19 @@ CREATE TABLE IF NOT EXISTS `servizi` (
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `size`
+--
+
+DROP TABLE IF EXISTS `size`;
+CREATE TABLE IF NOT EXISTS `size` (
+  `id_size` int NOT NULL AUTO_INCREMENT,
+  `misure` varchar(10) NOT NULL,
+  PRIMARY KEY (`id_size`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `spedizione`
 --
 
@@ -244,20 +287,6 @@ CREATE TABLE IF NOT EXISTS `spedizione` (
   PRIMARY KEY (`idspedizione`,`ordine_id_ordine`),
   KEY `fk_spedizione_ordine1_idx` (`ordine_id_ordine`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `super_categoria`
---
-
-DROP TABLE IF EXISTS `super_categoria`;
-CREATE TABLE IF NOT EXISTS `super_categoria` (
-  `id_super_categoria` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`id_super_categoria`),
-  UNIQUE KEY `id_super_categoria` (`id_super_categoria`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -336,13 +365,6 @@ CREATE TABLE IF NOT EXISTS `whishlist_has_prodotto` (
 --
 
 --
--- Limiti per la tabella `categoria_has_prodotto`
---
-ALTER TABLE `categoria_has_prodotto`
-  ADD CONSTRAINT `fk_categoria_has_prodotto_categoria1` FOREIGN KEY (`categoria_idcategoria`) REFERENCES `categoria` (`idcategoria`),
-  ADD CONSTRAINT `fk_categoria_has_prodotto_prodotto1` FOREIGN KEY (`prodotto_idprodotto`) REFERENCES `prodotto` (`idprodotto`);
-
---
 -- Limiti per la tabella `gruppi_has_servizi`
 --
 ALTER TABLE `gruppi_has_servizi`
@@ -353,7 +375,7 @@ ALTER TABLE `gruppi_has_servizi`
 -- Limiti per la tabella `immagine`
 --
 ALTER TABLE `immagine`
-  ADD CONSTRAINT `fk_immagine_prodotto1` FOREIGN KEY (`prodotto_idprodotto`) REFERENCES `prodotto` (`idprodotto`);
+  ADD CONSTRAINT `fk_immagine_prodotto1` FOREIGN KEY (`prodotto_idprodotto`) REFERENCES `prodotto` (`id_prodotto`);
 
 --
 -- Limiti per la tabella `indirizzo`
@@ -372,13 +394,27 @@ ALTER TABLE `ordine`
 --
 ALTER TABLE `ordine_has_prodotto`
   ADD CONSTRAINT `fk_carrello_has_prodotto_ordine1` FOREIGN KEY (`ordine_id_ordine`) REFERENCES `ordine` (`id_ordine`),
-  ADD CONSTRAINT `fk_carrello_has_prodotto_prodotto1` FOREIGN KEY (`prodotto_idprodotto`) REFERENCES `prodotto` (`idprodotto`);
+  ADD CONSTRAINT `fk_carrello_has_prodotto_prodotto1` FOREIGN KEY (`prodotto_idprodotto`) REFERENCES `prodotto` (`id_prodotto`);
+
+--
+-- Limiti per la tabella `prodotto`
+--
+ALTER TABLE `prodotto`
+  ADD CONSTRAINT `fk_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`idcategoria`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Limiti per la tabella `prodotto_varianti`
+--
+ALTER TABLE `prodotto_varianti`
+  ADD CONSTRAINT `fk_id_color` FOREIGN KEY (`color_id`) REFERENCES `color` (`id_color`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  ADD CONSTRAINT `fk_id_prodotto` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  ADD CONSTRAINT `fk_id_size` FOREIGN KEY (`size_id`) REFERENCES `size` (`id_size`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 --
 -- Limiti per la tabella `recensione`
 --
 ALTER TABLE `recensione`
-  ADD CONSTRAINT `fk_recensione_prodotto1` FOREIGN KEY (`prodotto_idprodotto`) REFERENCES `prodotto` (`idprodotto`);
+  ADD CONSTRAINT `fk_recensione_prodotto1` FOREIGN KEY (`prodotto_idprodotto`) REFERENCES `prodotto` (`id_prodotto`);
 
 --
 -- Limiti per la tabella `spedizione`
@@ -410,7 +446,7 @@ ALTER TABLE `whishlist`
 --
 ALTER TABLE `whishlist_has_prodotto`
   ADD CONSTRAINT `fk_carrello_has_prodotto_carrello1` FOREIGN KEY (`carrello_idUtente`,`carrello_Utente_idUtente`,`carrello_Utente_cliente_idCliente`) REFERENCES `whishlist` (`idUtente`, `Utente_idUtente`, `Utente_cliente_idCliente`),
-  ADD CONSTRAINT `fk_carrello_has_prodotto_prodotto2` FOREIGN KEY (`prodotto_idprodotto`) REFERENCES `prodotto` (`idprodotto`);
+  ADD CONSTRAINT `fk_carrello_has_prodotto_prodotto2` FOREIGN KEY (`prodotto_idprodotto`) REFERENCES `prodotto` (`id_prodotto`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
