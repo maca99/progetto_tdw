@@ -1,19 +1,24 @@
 <!-- product -->
-<[foreach]>
+
 <div class="product">
 	<div class="product-img">
-		<[product-image]>
+		<[immagine]>
 		<div class="product-label">
-			<[product-sale]>
+			<[sconto]>
 			<span class="new">NEW</span>
 		</div>
 	</div>
 	<div class="product-body">
-		<p class="product-category"><[product-category]></p>
-		<h3 class="product-name"><a href="#"><[product-name]></a></h3>
-		<h4 class="product-price"><[product-price]><del class="product-old-price"><[product-price-old]></del></h4>
+		<p class="product-category"><[category]></p>
+		<h3 class="product-name"><a href="#"><[nome]></a></h3>
+		<h4 class="product-price"><[prezzo]><del class="product-old-price"><[prezzo_vecchio]></del></h4>
 		<div class="product-rating">
-			<[product-rating]>
+			<[recensione]>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
+			<i class="fa fa-star"></i>
 			<!-- <i class="fa fa-star"></i> -->
 		</div>
 		<div class="product-btns">
@@ -26,5 +31,4 @@
 		<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
 	</div>
 </div>
-<[foreach]>
-<!-- /product -->
+
