@@ -22,11 +22,12 @@
 	}
 
 	//recensioni 
-	$oid=$mysqli->query("SELECT AVG(recensione.voto) as recensione FROM prodotto,recensione WHERE prodotto.id_prodotto=$id AND prodotto.id_prodotto=recensione.id_prodotto");
+	$oid=$mysqli->query("SELECT AVG(recensione.voto) as recensione,COUNT(*) as numero FROM prodotto,recensione WHERE prodotto.id_prodotto=$id AND prodotto.id_prodotto=recensione.id_prodotto");
 
+	
 	$row = $oid->fetch_assoc();
 	$star = (isset($row['recensione'])) ? $row['recensione'] : 5;
-	
+	$body->setContent("num_rew",$row['numero']);
 	for($i=0;$i<$star;$i++){
 		$tag="<i class='fa fa-star'></i>";
 		$body->setContent("recensione",$tag);
