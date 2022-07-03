@@ -4,6 +4,7 @@
 	require "include/template2.inc.php";
 
 	$password = (isset($_POST['password'])) ? trim($_POST['password']) : '';
+	$password = md5($password);
 	//$cognome = (isset($_POST['nome'])) ? trim($_POST['nome']) : '';
 	//$nome = (isset($_POST['cognome'])) ? trim($_POST['cognome']) : '';
 	$email = (isset($_POST['email'])) ? trim($_POST['email']) : '';
