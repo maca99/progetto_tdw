@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Creato il: Lug 02, 2022 alle 12:37
+-- Creato il: Lug 03, 2022 alle 17:18
 -- Versione del server: 8.0.27
 -- Versione PHP: 7.4.26
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `categoria`;
 CREATE TABLE IF NOT EXISTS `categoria` (
   `id_categoria` int NOT NULL,
-  `nome` varchar(45) DEFAULT NULL,
+  `nome_categoria` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id_categoria`),
   UNIQUE KEY `idcategoria` (`id_categoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `categoria` (
 -- Dump dei dati per la tabella `categoria`
 --
 
-INSERT INTO `categoria` (`id_categoria`, `nome`) VALUES
+INSERT INTO `categoria` (`id_categoria`, `nome_categoria`) VALUES
 (1, 'Laptops'),
 (2, 'Smartphone'),
 (3, 'Fotocamere'),
@@ -262,15 +262,23 @@ CREATE TABLE IF NOT EXISTS `prodotto_varianti` (
 DROP TABLE IF EXISTS `recensione`;
 CREATE TABLE IF NOT EXISTS `recensione` (
   `idrecensione` int NOT NULL,
-  `prodotto_idprodotto` int NOT NULL,
+  `id_prodotto` int NOT NULL,
   `voto` tinyint UNSIGNED DEFAULT NULL,
   `commento` varchar(100) DEFAULT NULL,
   `data` timestamp NULL DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idrecensione`,`prodotto_idprodotto`),
-  KEY `fk_recensione_prodotto1_idx` (`prodotto_idprodotto`)
+  PRIMARY KEY (`idrecensione`,`id_prodotto`),
+  KEY `fk_recensione_prodotto1_idx` (`id_prodotto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dump dei dati per la tabella `recensione`
+--
+
+INSERT INTO `recensione` (`idrecensione`, `id_prodotto`, `voto`, `commento`, `data`, `name`, `email`) VALUES
+(1, 1, 3, 'bo dasvfghgbayhbhrbafvlavrbhlvrabhyayhrlhjugarr', '2022-06-15 15:06:32', 'matteo', 'gdcfgfdgsa@hotmail.it'),
+(2, 1, 4, 'wtrhyjtajrhatqhehateaht', '2021-12-06 16:06:32', 'marco', 'marco@hotmail.it');
 
 -- --------------------------------------------------------
 
@@ -438,7 +446,7 @@ ALTER TABLE `prodotto_varianti`
 -- Limiti per la tabella `recensione`
 --
 ALTER TABLE `recensione`
-  ADD CONSTRAINT `fk_recensione_prodotto1` FOREIGN KEY (`prodotto_idprodotto`) REFERENCES `prodotto` (`id_prodotto`);
+  ADD CONSTRAINT `fk_recensione_prodotto1` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`);
 
 --
 -- Limiti per la tabella `spedizione`
