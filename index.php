@@ -54,6 +54,26 @@
     }
 
 
+    
+    $result9=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Laptops' order by prodotto.data ASC LIMIT 10");
+    $result10=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Smartphone' order by prodotto.data ASC LIMIT 10");
+    $result11=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Fotocamere' order by prodotto.data ASC LIMIT 10");
+
+    while($row = mysqli_fetch_array($result9)){
+        $body->setContent("product9",$utility->product_widget($row['id_prodotto']));
+    } 
+
+    while($row=mysqli_fetch_array($result10)){
+        $body->setContent("product10",$utility->product_widget($row['id_prodotto']));
+    } 
+
+    while($row=$result11->fetch_array()){
+        $body->setContent("product11",$utility->product_widget($row['id_prodotto']));
+    }
+
+
+
+
     $main->setContent("body",$body->get());
     $main->close();
 ?>
