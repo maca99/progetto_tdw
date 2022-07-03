@@ -114,10 +114,68 @@
                 }
                 return $main->get();
     
-          }
+        }
+
+        function rating($id){
+            global $mysqli;
+
+            $main= new Template("dhtml/rating_table.html");
+
+            $oid=$mysqli->query("SELECT voto, COUNT(*) as numero FROM recensione WHERE recensione.id_prodotto=1 GROUP BY recensione.voto");
+
+            $row = $oid->fetch_assoc();
+            $star = (isset($row['recensione'])) ? (int) $row['recensione'] : 5;
+            $main->setContent("recensione",$star);
+                       
+            for($i=0;$i<$star;$i++){
+                $tag="<i class='fa fa-star'></i>";
+                $main->setContent("stelle",$tag);
+            }
+
+            $oid=$mysqli->query("SELECT voto, COUNT(*) as numero FROM recensione WHERE recensione.id_prodotto=$id GROUP BY recensione.voto ");
+
+            $rating = array();
+            while($row=mysqli_fetch_assoc($oid)){
+                $rating[$row['voto']]=$row['numero'];
+            }
+
+            $conta1 = (isset($rating[1])) ? $rating[1] : 0;
+            $conta2 = (isset($rating[2])) ? $rating[2] : 0;
+            $conta3 = (isset($rating[3])) ? $rating[3] : 0;
+            $conta4 = (isset($rating[4])) ? $rating[4] : 0;
+            $conta5 = (isset($rating[5])) ? $rating[5] : 0;
+            $main->setContent("conta1",$conta1);
+            $main->setContent("conta2",$conta2);
+            $main->setContent("conta3",$conta3);
+            $main->setContent("conta4",$conta4);
+            $main->setContent("conta5",$conta5);
+
+
+            return $main->get();
+        }
+
 
 
           function reviews($id){
+
+            global $mysqli;
+
+            $main= new Template("dhtml/reviews_table.html");
+
+            $oid=$mysqli->query("SELECT COUNT(ALL *) as numero, voto FROM recensione WHERE recensione.id_prodotto=1 GROUP BY recensione.voto");
+
+
+
+            /*
+            $i=0;
+	        while($i<$star){
+		        $tag="<i class='fa fa-star'></i>";
+		        $body->setContent("star",$tag);	
+		        $i++;
+	        }
+	        $body->setContent("recensione",$i);*/
+
+	        //numero recensioni per stella
 
           }
 
