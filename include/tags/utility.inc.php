@@ -53,9 +53,19 @@
 			foreach($data as $key => $value) {
 				$main->setContent($key, $value);
 			}
-            //recensioni 
-            $oid=$mysqli->query("SELECT AVG(ALL recensioni) FROM prodotto,recensione WHERE prodotto.id_prodotto=recensioni.id_prodotto");
             
+            //recensioni 
+            $oid=$mysqli->query("SELECT AVG(recensione.voto) as recensione FROM prodotto,recensione WHERE prodotto.id_prodotto=$id AND prodotto.id_prodotto=recensione.id_prodotto");
+
+            $row = $oid->fetch_assoc();
+            $star = (isset($row['recensione'])) ? $row['recensione'] : 5;
+            
+            for($i=0;$i<$star;$i++){
+                $tag="<i class='fa fa-star'></i>";
+                $main->setContent("recensione",$tag);
+            }
+
+                
 
 			$result=$mysqli->query("SELECT idimmagine FROM `immagine` WHERE  prodotto_idprodotto = $id LIMIT 1");
 			if(mysqli_num_rows($result)!=1){
