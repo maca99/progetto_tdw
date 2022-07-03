@@ -9,10 +9,10 @@
 
    
     //new products
-    $result1=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome='Laptops' order by prodotto.data ASC LIMIT 10");
-    $result2=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome='Smartphone' order by prodotto.data ASC LIMIT 10");
-    $result3=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome='Fotocamere' order by prodotto.data ASC LIMIT 10");
-    $result4=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome='Accessori' order by prodotto.data ASC LIMIT 10");
+    $result1=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND nome_categoria='Laptops' order by prodotto.data ASC LIMIT 10");
+    $result2=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND nome_categoria='Smartphone' order by prodotto.data ASC LIMIT 10");
+    $result3=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND nome_categoria='Fotocamere' order by prodotto.data ASC LIMIT 10");
+    $result4=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND nome_categoria='Accessori' order by prodotto.data ASC LIMIT 10");
 
     while($row = mysqli_fetch_array($result1)){
         $body->setContent("product1",$utility->product_icon($row['id_prodotto']));
@@ -32,10 +32,10 @@
 
     //top selling
 
-    $result5=$mysqli->query("SELECT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria ) left JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE categoria.nome='Laptops' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ALL ordine_has_prodotto.pezzi) LIMIT 10");
-    $result6=$mysqli->query("SELECT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria ) left JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE categoria.nome='Smartphone' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ALL ordine_has_prodotto.pezzi) LIMIT 10");
-    $result7=$mysqli->query("SELECT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria )LEFT JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE categoria.nome = 'Fotocamere' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ordine_has_prodotto.pezzi) LIMIT 10");
-    $result8=$mysqli->query("SELECT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria ) LEFT JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE categoria.nome = 'Accessori' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ordine_has_prodotto.pezzi) LIMIT 10");
+    $result5=$mysqli->query("SELECT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria ) left JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE nome_categoria='Laptops' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ALL ordine_has_prodotto.pezzi) LIMIT 10");
+    $result6=$mysqli->query("SELECT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria ) left JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE nome_categoria='Smartphone' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ALL ordine_has_prodotto.pezzi) LIMIT 10");
+    $result7=$mysqli->query("SELECT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria )LEFT JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE nome_categoria='Fotocamere' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ALL ordine_has_prodotto.pezzi) LIMIT 10");
+    $result8=$mysqli->query("SELECT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria ) LEFT JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE nome_categoria='Accessori' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ALL ordine_has_prodotto.pezzi) LIMIT 10");
     
     while($row=$result5->fetch_array()){
         $body->setContent("product5",$utility->product_icon($row['id_prodotto']));
