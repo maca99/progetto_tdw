@@ -53,7 +53,7 @@
 			foreach($data as $key => $value) {
 				$main->setContent($key, $value);
 			}
-            
+
             //recensioni 
             $oid=$mysqli->query("SELECT AVG(recensione.voto) as recensione FROM prodotto,recensione WHERE prodotto.id_prodotto=$id AND prodotto.id_prodotto=recensione.id_prodotto");
 
@@ -114,6 +114,11 @@
                 }
                 return $main->get();
     
+          }
+
+
+          function reviews($id){
+
           }
 
     }

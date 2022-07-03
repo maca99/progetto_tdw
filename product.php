@@ -31,20 +31,7 @@
 		$body->setContent("correlati",$utility->product_icon($row['id_prodotto']));
 	}
 
-	//recensioni 
-	$oid=$mysqli->query("SELECT AVG(recensione.voto) as recensione,COUNT(*) as numero FROM prodotto,recensione WHERE prodotto.id_prodotto=$id AND prodotto.id_prodotto=recensione.id_prodotto");
-
-	
-	$row = $oid->fetch_assoc();
-	$star = (isset($row['recensione'])) ? $row['recensione'] : 5;
-	$body->setContent("num_rew",$row['numero']);
-	for($i=0;$i<$star;$i++){
-		$tag="<i class='fa fa-star'></i>";
-		$body->setContent("recensione",$tag);
-	}
-
-
-
+	//immaginni prodotto
 	$result=$mysqli->query("SELECT idimmagine FROM `immagine` WHERE  prodotto_idprodotto = $id");
 	 while($row = mysqli_fetch_array($result)){
         $id_immagine = $row['idimmagine'];
@@ -52,6 +39,25 @@
         $body->setContent("immagine","<img src=show.php?id=$id_immagine>");
     }
 
+
+	//recensioni 
+	$oid=$mysqli->query("SELECT AVG(recensione.voto) as recensione,COUNT(*) as numero FROM prodotto,recensione WHERE prodotto.id_prodotto=$id AND prodotto.id_prodotto=recensione.id_prodotto");
+	
+	$row = $oid1->fetch_assoc();
+	$star = (isset($row['recensione'])) ? $row['recensione'] : 5;
+	$body->setContent("num_rew",$row['numero']);
+	
+	$i=0;
+	while($i<$star){
+		$tag="<i class='fa fa-star'></i>";
+		$body->setContent("star",$tag);	
+		$i++;
+	}
+	$body->setContent("recensione",$i);
+	
+	//numero recensioni per stella
+	$oid=$mysqli->query("SELECT COUNT(ALL *) as numero, voto FROM recensione WHERE recensione.id_prodotto=1 GROUP BY recensione.voto");
+	$row = $oid
 
 
 
