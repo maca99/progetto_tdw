@@ -1,0 +1,30 @@
+<!-- Reviews -->
+<div class="col-md-6">
+    <div id="reviews">
+        <ul class="reviews"><[foreach]>
+            <li>
+                
+                <div class="review-heading">
+                    <h5 class="name"><[name]></h5>
+                    <p class="date"><[data]></p>
+                    <div class="review-rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-o empty"></i>
+                    </div>
+                </div>
+                <div class="review-body">
+                    <p><[commento]></p>
+                </div>
+                
+            </li><[/foreach]>
+            <li>
+        </ul>
+        <ul class="reviews-pagination">
+            <a href="#"><button class="primary-btn">Tutte le recensioni</button></a>
+        </ul>
+    </div>
+</div>
+<!-- /Reviews -->

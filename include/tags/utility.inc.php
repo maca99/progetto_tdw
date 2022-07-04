@@ -53,19 +53,21 @@
 			foreach($data as $key => $value) {
 				$main->setContent($key, $value);
 			}
-            
+
             //recensioni 
             $oid=$mysqli->query("SELECT AVG(recensione.voto) as recensione FROM prodotto,recensione WHERE prodotto.id_prodotto=$id AND prodotto.id_prodotto=recensione.id_prodotto");
 
             $row = $oid->fetch_assoc();
             $star = (isset($row['recensione'])) ? $row['recensione'] : 5;
             
-            for($i=0;$i<$star;$i++){
-                $tag="<i class='fa fa-star'></i>";
+            for($i=0;$i<5;$i++){
+                if($i<$star){
+                   $tag="<i class='fa fa-star'></i>"; 
+                }else{
+                    $tag="<i class='fa fa-star-o'></i>"; 
+                }
                 $main->setContent("recensione",$tag);
             }
-
-                
 
 			$result=$mysqli->query("SELECT idimmagine FROM `immagine` WHERE  prodotto_idprodotto = $id LIMIT 1");
 			if(mysqli_num_rows($result)!=1){
@@ -114,6 +116,70 @@
                 }
                 return $main->get();
     
+        }
+
+        function rating($id){
+            global $mysqli;
+
+            $main= new Template("dhtml/rating_table.html");
+
+            $oid=$mysqli->query("SELECT voto, AVG(recensione.voto) as recensione FROM recensione WHERE recensione.id_prodotto=$id GROUP BY recensione.voto");
+
+            $row = $oid->fetch_assoc();
+            $star = (isset($row['recensione'])) ? (int)$row['recensione'] : 5;
+            $main->setContent("recensione",$star);
+                       
+            for($i=0;$i<5;$i++){
+                if($i<$star){
+                   $tag="<i class='fa fa-star'></i>"; 
+                }else{
+                    $tag="<i class='fa fa-star-o'></i>"; 
+                }
+                $main->setContent("stelle",$tag);
+            }
+
+            $oid=$mysqli->query("SELECT voto, COUNT(*) as numero FROM recensione WHERE recensione.id_prodotto=$id GROUP BY recensione.voto ");
+
+            $rating = array();
+            while($row=mysqli_fetch_assoc($oid)){
+                $rating[$row['voto']]=$row['numero'];
+            }
+
+            $conta1 = (isset($rating[1])) ? $rating[1] : 0;
+            $conta2 = (isset($rating[2])) ? $rating[2] : 0;
+            $conta3 = (isset($rating[3])) ? $rating[3] : 0;
+            $conta4 = (isset($rating[4])) ? $rating[4] : 0;
+            $conta5 = (isset($rating[5])) ? $rating[5] : 0;
+            $main->setContent("conta1",$conta1);
+            $main->setContent("conta2",$conta2);
+            $main->setContent("conta3",$conta3);
+            $main->setContent("conta4",$conta4);
+            $main->setContent("conta5",$conta5);
+
+            return $main->get();
+        }
+
+        
+          function reviews($id){
+
+            global $mysqli;
+
+            $main= new Template("dhtml/reviews_table.html");
+
+            $oid=$mysqli->query("SELECT *  FROM recensione WHERE id_prodotto=$id LIMIT 3");
+
+            if($oid){
+                
+            }
+            while($row=$oid->fetch_assoc()){
+                $main->setContent("name",$row['name']);
+                $main->setContent("voto",$row['voto']);
+                $main->setContent("data",$row['data']);
+                $main->setContent("commento",$row['commento']);
+            }
+
+
+            return $main->get();
           }
 
     }
