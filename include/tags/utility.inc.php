@@ -159,7 +159,6 @@
             return $main->get();
         }
 
-
           function reviews($id){
 
             global $mysqli;
