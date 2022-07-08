@@ -11,19 +11,43 @@
 
 
 	//informazioni sul prodotto
-	$oid=$mysqli->query("SELECT * FROM prodotto,categoria WHERE id_prodotto= $id AND prodotto.id_categoria=categoria.id_categoria");
+	$oid=$mysqli->query("SELECT * FROM prodotto,categoria WHERE prodotto.id_prodotto= $id AND prodotto.id_categoria=categoria.id_categoria ");
+
 	
 	if(mysqli_num_rows($oid) != 1){
 		echo("prodotto non trovato");
 		exit();
 	}
-
 	$data = $oid->fetch_assoc();
 	
 	
 	foreach($data as $key => $value) {
 		$body->setContent($key, $value);
+		$main->setContent($key, $value);
 	}
+
+	//colore e grandezze
+	$body->setContent("size", $utility->size($id));
+	$body->setContent("color", $utility->color($id));
+	
+
+
+	//numero di recensioni
+	$oid=$mysqli->query("SELECT COUNT(*)as num_rew ,AVG(recensione.voto) as voto FROM recensione WHERE id_prodotto= $id");
+	$num=$oid->fetch_assoc();
+	$body->setContent("num_rew", $num['num_rew']);
+
+	//icone stelle valutazione
+	$star = (isset($num['voto'])) ? (int)$num['voto'] : 5;
+	for($i=0;$i<5;$i++){
+		if($i<$star){
+		   $tag="<i class='fa fa-star'></i>"; 
+		}else{
+			$tag="<i class='fa fa-star-o'></i>"; 
+		}
+		$body->setContent("stelle",$tag);
+	}
+	
 
 	//numero di recensioni
 	$oid=$mysqli->query("SELECT COUNT(*)as num_rew ,AVG(recensione.voto) as voto FROM recensione WHERE id_prodotto= $id");
