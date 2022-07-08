@@ -159,7 +159,7 @@
             return $main->get();
         }
 
-        
+
           function reviews($id){
 
             global $mysqli;
@@ -168,8 +168,8 @@
 
             $oid=$mysqli->query("SELECT *  FROM recensione WHERE id_prodotto=$id LIMIT 3");
 
-            if($oid){
-                
+            if(mysqli_num_rows($oid) == 0){
+                return $main->get();
             }
             while($row=$oid->fetch_assoc()){
                 $main->setContent("name",$row['name']);
@@ -181,6 +181,30 @@
 
             return $main->get();
           }
+
+          function color($id){
+            global $mysqli;
+
+            $main= new Template("dhtml/webarch/option.html");
+                $oid=$mysqli->query("SELECT nome_colore AS title, color.id_color AS valore FROM prodotto_has_color ,color WHERE prodotto_has_color.id_prodotto=$id AND prodotto_has_color.id_color=color.id_color ");
+                while($data=$oid->fetch_array()) {
+                    $main->setContent("title", $data['title']);
+                    $main->setContent("value", $data['valore']);
+               }
+               return $main->get();
+            }
+            function size($id){
+                global $mysqli;
+
+                $main= new Template("dhtml/webarch/option.html");
+                $oid=$mysqli->query("SELECT misure as title,size.id_size as valore FROM prodotto_has_size,size WHERE prodotto_has_size.id_prodotto=$id AND prodotto_has_size.id_size=size.id_size");
+                while($data=$oid->fetch_array()) {
+                     $main->setContent("title", $data['title']);
+                     $main->setContent("value", $data['valore']);
+                }
+                return $main->get();
+            }
+
 
     }
 
