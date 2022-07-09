@@ -53,19 +53,7 @@
 	$oid=$mysqli->query("SELECT COUNT(*)as num_rew ,AVG(recensione.voto) as voto FROM recensione WHERE id_prodotto= $id");
 	$num=$oid->fetch_assoc();
 	$body->setContent("num_rew", $num['num_rew']);
-
-	//icone stelle valutazione
-	$star = (isset($num['voto'])) ? (int)$num['voto'] : 5;
-	for($i=0;$i<5;$i++){
-		if($i<$star){
-		   $tag="<i class='fa fa-star'></i>"; 
-		}else{
-			$tag="<i class='fa fa-star-o'></i>"; 
-		}
-		$body->setContent("stelle",$tag);
-	}
 	
-
 	//prodotti correlati
 	$categoria=$data['id_categoria'];
 	$prodotto=$data['id_prodotto'];

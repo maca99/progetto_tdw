@@ -1,8 +1,9 @@
 <?php
 session_start();
  foreach($_SESSION['cart'] as $product){
-    echo $product['quantity'];
-    echo $product['color'];
+    echo ($product['quantity']."<br>");
+    echo($product['color']);
+
 }
 
 ?>
