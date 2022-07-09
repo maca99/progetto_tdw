@@ -52,12 +52,7 @@
 			$user_id = $mysqli->insert_id();
 
 			/* aggiunta di altre informazioni dell'utente */
-
-
-
-			/* salvataggio dati nella sessione */
-			$_SESSION['logged'] = 1;
-			$_SESSION['username']=$username;
+			Header("Location: login.php");
 
 
 		}

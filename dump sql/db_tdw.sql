@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Creato il: Lug 03, 2022 alle 17:18
+-- Creato il: Lug 08, 2022 alle 20:18
 -- Versione del server: 8.0.27
 -- Versione PHP: 7.4.26
 
@@ -78,9 +78,17 @@ INSERT INTO `cliente` (`idCliente`, `nome`, `cognome`, `città`, `stato`, `codic
 DROP TABLE IF EXISTS `color`;
 CREATE TABLE IF NOT EXISTS `color` (
   `id_color` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(25) NOT NULL,
+  `nome_colore` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id_color`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dump dei dati per la tabella `color`
+--
+
+INSERT INTO `color` (`id_color`, `nome_colore`) VALUES
+(1, 'rosso'),
+(2, 'verde');
 
 -- --------------------------------------------------------
 
@@ -237,21 +245,46 @@ INSERT INTO `prodotto` (`id_prodotto`, `nome`, `prezzo`, `descrizione_breve`, `d
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `prodotto_varianti`
+-- Struttura della tabella `prodotto_has_color`
 --
 
-DROP TABLE IF EXISTS `prodotto_varianti`;
-CREATE TABLE IF NOT EXISTS `prodotto_varianti` (
-  `varianti_id` int NOT NULL AUTO_INCREMENT,
+DROP TABLE IF EXISTS `prodotto_has_color`;
+CREATE TABLE IF NOT EXISTS `prodotto_has_color` (
   `id_prodotto` int NOT NULL,
-  `color_id` int NOT NULL,
-  `size_id` int NOT NULL,
-  `disponibilità` int UNSIGNED NOT NULL,
-  PRIMARY KEY (`varianti_id`),
-  KEY `colro_id` (`color_id`),
-  KEY `size_id` (`size_id`),
-  KEY `id_prodotto` (`id_prodotto`)
+  `id_color` int NOT NULL,
+  KEY `fk_prodotto` (`id_prodotto`),
+  KEY `fk_color` (`id_color`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dump dei dati per la tabella `prodotto_has_color`
+--
+
+INSERT INTO `prodotto_has_color` (`id_prodotto`, `id_color`) VALUES
+(1, 1),
+(1, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `prodotto_has_size`
+--
+
+DROP TABLE IF EXISTS `prodotto_has_size`;
+CREATE TABLE IF NOT EXISTS `prodotto_has_size` (
+  `id_prodotto` int NOT NULL,
+  `id_size` int NOT NULL,
+  KEY `fk_prodotto_size` (`id_prodotto`),
+  KEY `fk_size_prodotto` (`id_size`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dump dei dati per la tabella `prodotto_has_size`
+--
+
+INSERT INTO `prodotto_has_size` (`id_prodotto`, `id_size`) VALUES
+(1, 1),
+(1, 2);
 
 -- --------------------------------------------------------
 
@@ -261,24 +294,25 @@ CREATE TABLE IF NOT EXISTS `prodotto_varianti` (
 
 DROP TABLE IF EXISTS `recensione`;
 CREATE TABLE IF NOT EXISTS `recensione` (
-  `idrecensione` int NOT NULL,
+  `id_recensione` int NOT NULL AUTO_INCREMENT,
   `id_prodotto` int NOT NULL,
   `voto` tinyint UNSIGNED DEFAULT NULL,
   `commento` varchar(100) DEFAULT NULL,
   `data` timestamp NULL DEFAULT NULL,
   `name` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idrecensione`,`id_prodotto`),
+  PRIMARY KEY (`id_recensione`,`id_prodotto`),
   KEY `fk_recensione_prodotto1_idx` (`id_prodotto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dump dei dati per la tabella `recensione`
 --
 
-INSERT INTO `recensione` (`idrecensione`, `id_prodotto`, `voto`, `commento`, `data`, `name`, `email`) VALUES
+INSERT INTO `recensione` (`id_recensione`, `id_prodotto`, `voto`, `commento`, `data`, `name`, `email`) VALUES
 (1, 1, 3, 'bo dasvfghgbayhbhrbafvlavrbhlvrabhyayhrlhjugarr', '2022-06-15 15:06:32', 'matteo', 'gdcfgfdgsa@hotmail.it'),
-(2, 1, 4, 'wtrhyjtajrhatqhehateaht', '2021-12-06 16:06:32', 'marco', 'marco@hotmail.it');
+(2, 1, 4, 'wtrhyjtajrhatqhehateaht', '2021-12-06 16:06:32', 'marco', 'marco@hotmail.it'),
+(3, 1, 4, 'dgbsbdsgbhtat', '2022-07-01 18:40:49', 'qgreerga', 'qgerqrer@bhgfrhbvj');
 
 -- --------------------------------------------------------
 
@@ -303,7 +337,15 @@ CREATE TABLE IF NOT EXISTS `size` (
   `id_size` int NOT NULL AUTO_INCREMENT,
   `misure` varchar(10) NOT NULL,
   PRIMARY KEY (`id_size`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dump dei dati per la tabella `size`
+--
+
+INSERT INTO `size` (`id_size`, `misure`) VALUES
+(1, '50x50'),
+(2, '800x800');
 
 -- --------------------------------------------------------
 
@@ -425,7 +467,6 @@ ALTER TABLE `ordine`
 --
 ALTER TABLE `ordine_has_prodotto`
   ADD CONSTRAINT `fk_carrello_has_prodotto_ordine1` FOREIGN KEY (`ordine_id_ordine`) REFERENCES `ordine` (`id_ordine`),
-  ADD CONSTRAINT `fk_id_variante_prodotto` FOREIGN KEY (`id_variante_prodotto`) REFERENCES `prodotto_varianti` (`varianti_id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `hsddjhvcv` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
@@ -435,12 +476,18 @@ ALTER TABLE `prodotto`
   ADD CONSTRAINT `fk_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria` (`id_categoria`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
--- Limiti per la tabella `prodotto_varianti`
+-- Limiti per la tabella `prodotto_has_color`
 --
-ALTER TABLE `prodotto_varianti`
-  ADD CONSTRAINT `fk_id_color` FOREIGN KEY (`color_id`) REFERENCES `color` (`id_color`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  ADD CONSTRAINT `fk_id_prodotto` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  ADD CONSTRAINT `fk_id_size` FOREIGN KEY (`size_id`) REFERENCES `size` (`id_size`) ON DELETE CASCADE ON UPDATE RESTRICT;
+ALTER TABLE `prodotto_has_color`
+  ADD CONSTRAINT `fk_color` FOREIGN KEY (`id_color`) REFERENCES `color` (`id_color`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `fk_prodotto` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Limiti per la tabella `prodotto_has_size`
+--
+ALTER TABLE `prodotto_has_size`
+  ADD CONSTRAINT `fk_prodotto_size` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `fk_size_prodotto` FOREIGN KEY (`id_size`) REFERENCES `size` (`id_size`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Limiti per la tabella `recensione`

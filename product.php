@@ -2,6 +2,7 @@
 	require "include/dbms.inc.php";
 	require "include/template2.inc.php";
 	include "include/tags/utility.inc.php";
+	session_start();
 
 	$main= new Template("dhtml/blank.html");
     $body= new Template("dhtml/product.html");
@@ -13,7 +14,6 @@
 	//informazioni sul prodotto
 	$oid=$mysqli->query("SELECT * FROM prodotto,categoria WHERE prodotto.id_prodotto= $id AND prodotto.id_categoria=categoria.id_categoria ");
 
-	
 	if(mysqli_num_rows($oid) != 1){
 		echo("prodotto non trovato");
 		exit();

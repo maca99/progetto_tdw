@@ -51,6 +51,7 @@
             $_SESSION['auth'] = true;
             $_SESSION['user'] = $user;
         
+            //prende gli script che il gruppo dell'utente può vedere
             $oid = $mysqli->query("
                 SELECT DISTINCT script FROM user 
                 LEFT JOIN user_has_ugroup
@@ -71,7 +72,7 @@
                     $scripts[$data['script']] = true;
                 }
             } while ($data);
-
+            
             $_SESSION['user']['script'] = $scripts;
         
             if (isset($_SESSION['referrer'])) {
