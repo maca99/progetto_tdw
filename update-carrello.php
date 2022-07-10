@@ -13,7 +13,7 @@ session_start();
     }else{
 
         if($_POST['action']=="add"){
-            if(isset($_SESSION['cart'][$product])){
+            if(isset($_SESSION['cart'][$product]) && $_SESSION['cart'][$product]['id'] == $product){
                 $_SESSION['cart'][$product]['quantity']=$_SESSION['cart'][$product]['quantity']+$quantity;
             }else{
                 $_SESSION['cart'][$product]['id']=$product;

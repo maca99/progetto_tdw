@@ -4,14 +4,16 @@
         <i class="fa fa-shopping-cart"></i>
         <span>Your Cart</span>
         <input type="number" class="qty" value="<?= $row['product_qty'] ?>">
-        <div class="qty">[num_product]</div>
+        <div class="qty"><[num_product]></div>
     </a>
     <div class="cart-dropdown">
         <div class="cart-list">
-            <[item]>
+            <[foreach]>
+                <[item]>
+            <[/foreach]>
         <div class="cart-summary">
-            <small>[num_item] Item(s) selected</small>
-            <h5>SUBTOTAL: [total]</h5>
+            <small><[num_item]> Item(s) selected</small>
+            <h5>SUBTOTAL: <[total]></h5>
         </div>
         <div class="cart-btns">
             <a href="./cart.php">View Cart</a>
