@@ -1,6 +1,6 @@
 <?php
     require "include/dbms.inc.php";
-
+    session_start();
     //post: id_prodotto,name,email,text,rating
     $id_prodotto=$_POST['id_prodotto'];
     $name = (isset($_POST['name'])) ? trim($_POST['name']) : '';
