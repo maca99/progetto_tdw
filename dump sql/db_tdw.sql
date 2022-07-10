@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Creato il: Lug 08, 2022 alle 20:18
+-- Creato il: Lug 10, 2022 alle 15:15
 -- Versione del server: 8.0.27
 -- Versione PHP: 7.4.26
 
@@ -303,7 +303,7 @@ CREATE TABLE IF NOT EXISTS `recensione` (
   `email` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_recensione`,`id_prodotto`),
   KEY `fk_recensione_prodotto1_idx` (`id_prodotto`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dump dei dati per la tabella `recensione`
