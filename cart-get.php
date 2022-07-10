@@ -9,7 +9,7 @@ if(isset($product)){
     $oid=$mysqli->query("SELECT * FROM prodotto WHERE id_prodotto=$product");
     if($oid->num_rows() != 0){
         if(!isset($_SESSION['cart']['item'][$product])){
-            $_SESSION['cart']['item'][$product]=
+            $_SESSION['cart']['item'][$product];
         }
     }
 }
