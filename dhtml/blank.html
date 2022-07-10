@@ -98,25 +98,7 @@
 								<!-- /Wishlist -->
 
 								<!-- Cart -->
-								<div class="dropdown">
-									<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-										<i class="fa fa-shopping-cart"></i>
-										<span>Your Cart</span>
-										<input type="number" class="qty" value="<?= $row['product_qty'] ?>">
-										<div class="qty">[quantita]</div>
-									</a>
-									<div class="cart-dropdown">
-										<div class="cart-list">
-										<div class="cart-summary">
-											<small>[num_product] Item(s) selected</small>
-											<h5>SUBTOTAL: [total]</h5>
-										</div>
-										<div class="cart-btns">
-											<a href="./cart.php">View Cart</a>
-											<a href="./checkout.php">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-										</div>
-									</div>
-								</div>
+								<[carrello::view library="cart"]>
 								<!-- /Cart -->
 
 								<!-- Menu Toogle -->
@@ -170,10 +152,11 @@
 				<!-- row -->
 				<div class="row">
 					<div class="col-md-12">
-						<h3 class="breadcrumb-header">Regular Page</h3>
+						<h3 class="breadcrumb-header"><[titolo]></h3>
 						<ul class="breadcrumb-tree">
-							<li><a href="#">Home</a></li>
-							<li class="active">Blank</li>
+							<li><a href="index.php">Home</a></li>
+							<li><a href="#"><[nome_categoria]></a></li>
+							<li class="active"><[nome]></li>
 						</ul>
 					</div>
 				</div>

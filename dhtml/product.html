@@ -30,42 +30,45 @@
     <div>
         <div class="product-rating">
 			<[foreach]>
-			<[stelle]>
+			 <[stelle]> 
 			<[/foreach]>
 		</div>
         <a class="review-link"><[num_rew]> Review(s) | Add your review</a>
     </div>
     <div>
-        <h3 class="product-price"><[prezzo]> <del class="product-old-price"><[prezzo_vecchio]></del></h3>
+        <h3 class="product-price"><[prezzo]>$<del class="product-old-price"><[prezzo_vecchio]></del></h3>
         <span class="product-available"><[sconto]></span>
     </div>
     <p><[descrizione_breve]></p>
+<form action="update-carrello.php" method="post">
     <div class="product-options">
         <label>
             Size
-            <select class="input-select">
-                <option value="0">X</option>
+            <select class="input-select" name="size">
+                <[size]>
             </select>
         </label>
         <label>
             Color
-            <select class="input-select">
-                <option value="0">Red</option>
+            <select class="input-select"name="color" >
+                <[color]>
             </select>
         </label>
     </div>
 
     <div class="add-to-cart">
+        <input type="hidden" name="product" value="<[id_prodotto]>">
         <div class="qty-label">
             Qty
             <div class="input-number">
-                <input type="number" min="1" max="100" id="quantity"  >
+                <input type="number" min="1" max="100" name="quantity" value="1">
                 <span class="qty-up">+</span>
                 <span class="qty-down">-</span>
             </div>
         </div>
-        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a href="./checkout.php"> Aggiungi al carrello</a></button>
+        <button class="add-to-cart-btn" type="submit" name="action" value="add"><i class="fa fa-shopping-cart"></i> Aggiungi al carrello</button>
     </div>
+</form>
 
     <ul class="product-btns">
         <li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
