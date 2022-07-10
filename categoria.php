@@ -14,7 +14,7 @@ $category= (isset($_GET['category'])) ? trim($_GET['category']) : '';
 $limit=(isset($_POST['limit'])) ? trim($_POST['limit']) : 20;
 //$sorted= (isset($_POST['sorted'])) ? trim($_POST['sorted']) : "Popular";
 
-$oid=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Laptops'");
+$oid=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Laptops' ");
 
 while($row = $oid->fetch_array()){
     $body->setContent("product",$utility->product_icon($row["id_prodotto"]));
