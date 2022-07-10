@@ -2,11 +2,12 @@
 require "include/dbms.inc.php";
 session_start();
     
-    $product=(isset($_POST['product'])? $_POST['product']:'');
+    $product=$_REQUEST['product'];
+    $action=$_REQUEST['action'];
     $quantity=(isset($_POST['quantity'])? $_POST['quantity']:1);
     $color=(isset($_POST['color'])? $_POST['color']:'');
     $size=(isset($_POST['size'])? $_POST['size']:'');
-    $action=$_REQUEST['action'];
+    
 
     $oid=$mysqli->query("SELECT * FROM prodotto WHERE id_prodotto=$product");
     if(mysqli_num_rows($oid)!=1){
