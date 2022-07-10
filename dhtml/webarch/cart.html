@@ -1,0 +1,22 @@
+<!-- Cart -->
+<div class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+        <i class="fa fa-shopping-cart"></i>
+        <span>Your Cart</span>
+        <input type="number" class="qty" value="<?= $row['product_qty'] ?>">
+        <div class="qty">[num_product]</div>
+    </a>
+    <div class="cart-dropdown">
+        <div class="cart-list">
+            <[item]>
+        <div class="cart-summary">
+            <small>[num_item] Item(s) selected</small>
+            <h5>SUBTOTAL: [total]</h5>
+        </div>
+        <div class="cart-btns">
+            <a href="./cart.php">View Cart</a>
+            <a href="./checkout.php">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
+<!-- /Cart -->
