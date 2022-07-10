@@ -8,7 +8,7 @@
             global $mysqli;
 
                 $main=new Template("dhtml\webarch\cart.html");
-                $num_item=0;$num_product=0;
+                $num_item=0;$num_product=0;$total=0;
                 
                 if(isset($_SESSION['cart'])){
                     foreach($_SESSION['cart'] as $item){
@@ -18,6 +18,7 @@
                         $data = $oid->fetch_assoc();
 
                         //dati
+                        $body->setContent("id", $id);
                         $body->setContent("nome", $data['nome']);
                         $body->setContent("prezzo", $data['prezzo']);
                         $body->setContent("quantity",$item['quantity']);
@@ -27,11 +28,13 @@
                         $img="<img src=show.php?id=$tag>";
                         $body->setContent("immagine", $img);
 
+                        $total=$total+($item['quantity']*$data['prezzo']);
                         $num_product=$num_product+$item['quantity'];
                         $num_item=$num_item+1;
                         $main->setContent("item",$body->get());
                     }   
                 } 
+                $main->setContent("total",$total);
                 $main->setContent("num_product",$num_product);
                 $main->setContent("num_item",$num_item);
                 return $main->get();
