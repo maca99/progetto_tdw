@@ -198,8 +198,8 @@
                 $main= new Template("dhtml/webarch/option.html");
                 $oid=$mysqli->query("SELECT misure as title,size.id_size as valore FROM prodotto_has_size,size WHERE prodotto_has_size.id_prodotto=$id AND prodotto_has_size.id_size=size.id_size");
                 while($data=$oid->fetch_array()) {
-                     $main->setContent("title", $data['title']);
-                     $main->setContent("value", $data['valore']);
+                    $main->setContent("title", $data['title']);
+                    $main->setContent("value", $data['valore']);
                 }
                 return $main->get();
             }
