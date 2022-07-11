@@ -4,7 +4,7 @@
     include "include/tags/utility.inc.php";
     session_start();
 
-	$body= new Template("dhtml/index-copia.html");
+	$body= new Template("dhtml/index.html");
     $main= new Template("dhtml/blank-min.html");
     $utility=new utility();
 
