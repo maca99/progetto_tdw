@@ -2,30 +2,27 @@
     <h1>Carrello</h1>
     
     <a class="btn btn-primary" href="index.php?action=empty">Svuota Carrello</a>
+    
     <br>
-
-    <table cellpadding="10" cellspacing="1">
-        <tbody>
-            <ul class="main-nav nav navbar-nav">
-                <th style="">Prodotto</th>
-                <th style="text-align:left;">Quantità</th>
-                <th style="text-align:center;" width="10%">Prezzo</th>
-                <th style="text-align:right;">Azione</th>
-            </ul>
+    <table>
+            <tr>
+                <th width="50%">Prodotto</th>
+                <th width="20%">Quantità</th>
+                <th width="20%">Prezzo</th>
+                <th width="5%">Azione</th>
+            </tr>
 
             <tr>
-                <td  class="product-name", style="text-align:left;"><[product]></td>
-                <td style="text-align"> <input type="number" class="input input-number" id="quantity" name="quantity" min="1" max="20"></td>
-                <td style="text-align:center;" width="10%"><[prezzo]></td>
-                <td style="text-align:right;"><button type="submit" class="btn btn-primary" >Rimuovi</button></td>
+                <td  class="product-name"><[product]></td>
+                <td > <input type="number" class="input input-number" id="quantity" name="quantity" min="1" max="20"></td>
+                <td><[prezzo]></td>
+                <td ><button type="submit" class="btn btn-primary" >Rimuovi</button></td>
             </tr>
 
             <tr>
                 <td colspan="2" align="right">Totale:</td>
                 <td align="right"><[totale]></td>
                 <td align="right" colspan="2"><strong><?php echo "$ ".number_format($total_price, 2); ?></strong></td>
-                <td></td>
                 </tr>
-        </tbody>
     </table>
 </div>
