@@ -204,6 +204,18 @@
                 return $main->get();
             }
 
+            function category($name,$data,$pars){
+                global $mysqli;
+
+                $main= new Template("dhtml/webarch/option.html");
+                $oid=$mysqli->query("SELECT *  FROM categoria ");
+                while($data=$oid->fetch_array()) {
+                    $main->setContent("title", $data['nome_categoria']);
+                    $main->setContent("value", $data['id_categoria']);
+                }
+                return $main->get();
+            }
+
 
     }
 

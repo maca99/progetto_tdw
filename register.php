@@ -3,11 +3,12 @@
 	require "include/dbms.inc.php";
 	require "include/template2.inc.php";
 
-	$password = (isset($_POST['password'])) ? trim($_POST['password']) : '';
-	$password = md5($password);
-	//$cognome = (isset($_POST['nome'])) ? trim($_POST['nome']) : '';
-	//$nome = (isset($_POST['cognome'])) ? trim($_POST['cognome']) : '';
-	$email = (isset($_POST['email'])) ? trim($_POST['email']) : '';
+	$password = (isset($_POST['password']) && strlen($_POST['pass']) > 5) ?  md5($password) : '';
+	$username=(isset($_POST['username'])) ? trim($_POST['username']) : '';
+	$nome = (isset($_POST['nome'])) ? trim($_POST['nome']) : '';
+	$cognome = (isset($_POST['cognome'])) ? trim($_POST['cognome']) : '';
+
+
 	$main=new Template('dhtml/blank-min.html');
 	$body=new Template('dhtml/register.html');
 
@@ -15,26 +16,20 @@
 	{
 		$errors = array();
 		//verifica che i campi obbligatori siano stati compilati
-		if(empty($email)){
-			$errors['email']='Email non inserita.';
+		if(empty($username)){
+			$errors['username']='Username non inserita.';
+		}elseif(empty($password)){
+			$errors['password']='Password non inserita.'
+		}elseif(empty($nome) || empty($cognome)){
+			$errors['']=' non inserita.'
 		}else{//controlla se l'email sia già inserita
-			$oid2=$mysqli->query("SELECT * FROM utente WHERE email='".$_POST['email']."' ");
+			$oid2=$mysqli->query("SELECT * FROM utente WHERE username='".$_POST['username']."' ");
 			if(mysqli_num_rows($oid2) > 0)
 			{
-				header("location: login.php");
+				$errors[]='Questa username è già registrata';
 			}
 		}	
-		
 
-		if(empty($password)){
-			$errors['password']='Password non inserita.';
-		}
-		/*if(empty($nome)){
-			$errors['nome']='Nome non inserito.';
-		}
-		if(empty($cognome)){
-			$errors['cognome']='Cognome non inserito.';
-		}*/
 
 		if(count($errors) > 0){
 			foreach($errors as $key=>$error){
@@ -43,17 +38,13 @@
 			}
 		}else{
 			//quando va tutto bene
-			$oid=$mysqli->query("INSERT INTO utente ( email, password)
+			$oid=$mysqli->query("INSERT INTO utente (id_user ,username, password, nome , cognome)
 				VALUES 
-					('".$email."','".$password."') ");
+					(NULL, $username, $password, $nome, $cognome)");
 			
-
-			/* aggiunta di altre informazioni dell'utente */
-
-			/* salvataggio dati nella sessione */
-			$_SESSION['logged'] = 1;
-			$_SESSION['email']=$email;
-			//header("location: index.php");
+			$user_id = $mysqli->insert_id();
+			
+			header("location: login.php");
 		}
 	}
 	$main->setContent("body",$body->get());

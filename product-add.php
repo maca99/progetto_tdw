@@ -8,76 +8,57 @@
     $main = new Template("dhtml/blank.html");
     $body = new Template("dhtml/product-add.html");
 
+    $nome=$_POST['nome'];
+    $prezzo=$_POST['prezzo'];
+    $descrizione=trim($_POST['descrizione']);
 
-    if (!isset($_REQUEST['step'])) {
-        $_REQUEST['step'] = 0;
-    }
 
     if(isset($_POST["submit"])){
 
-        $b = getimagesize($_FILES["userImage"]["tmp_name"]);
+        $oid = $mysqli->query("INSERT INTO prodotto  (id_prodotto,nome,prezzo,descrizione_breve,descrizione,dettagli,id_categoria) 
+        VALUES (NULL,'$nome','$prezzo','$descrizione','$descrizione','$descrizione',1)");
+            
+        if (!$oid) {
+            echo $mysqli->error;
+            $main->setContent("message", "10");
+        } else {
+            $main->setContent("message", "00");
+        }
+
+        /*
+        //verifica se il file è stato caricato
+        $result = is_uploaded_file($_FILES["userImage"]["tmp_name"]);
 
         //Check if the user has selected an image
 
-        if($b !== false){
-        
+        if(!$result){
+            echo "Please select an image to upload.";
+        }else{
+
             //Get the contents of the image
 
-            $file = $_FILES['userImage']['tmp_name'];
-            $image = addslashes(file_get_contents($file));
-            
-            //Insert the image into the database
-            $oid = $mysqli->query("INSERT into immagine (immagine) VALUES ('$image')");
-            if($query){
-                echo "File uploaded successfully.";
-            }else{
-                echo "File upload failed.";
-            } 
-        }else{
-            echo "Please select an image to upload.";
-        }
-    }
-
-    if(!empty($_GET['id'])){
-
-        //Get the image from the database
-        $oid = $mysqli->query("SELECT image FROM prodotto WHERE id = {$_GET['id']}");
-        
-        if($res->num_rows > 0){
-            $img = $res->fetch_assoc();
-            
-            //Render the image
-            header("Content-type: image/jpg"); 
-            echo $img['image']; 
-        }else{
-            echo 'Image not found...';
-        }
-    }
-
-
-    switch ($_REQUEST['step']) { 
-        case 0: // form emission
-            
-            break;
-        case 1: // transaction
-
-            $oid = $mysqli->query("INSERT INTO prodotto VALUES (
-                0,
-                    '{$_REQUEST['nome']}',
-                    '{$_REQUEST['prezzo']}',
-                    '{$_REQUEST['descrizione']}')"
-                );
+                $size = $_FILES['userImage']['size'];
+                if($size > 2000){
+                    echo"il file è troppo grande!";
+                    exit();
+                }
+                $type= $_FILES['userImage']['type'];
+                $immagine=file_get_contents($_FILES['userImage']['tmp_name']);
+                $immagine=addslashes($immagine);
                 
-            if (!$oid) {
-                $main->setContent("message", "10");
-            } else {
-                $main->setContent("message", "00");
-            }
-            break;
+                //Insert the image into the database
+                $oid = $mysqli->query("INSERT INTO immagine (immagine,prodotto_idprodotto,type) VALUES ('$image','$id_prodotto','$type')");
+                if($query){
+                    echo "File uploaded successfully.";
+                }else{
+                    echo "File upload failed.";
+                } 
 
-
-
+        }*/
     }
+
+
+   
 
     $main->setContent("body", $body->get());
     $main->close();
