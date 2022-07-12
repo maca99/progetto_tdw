@@ -23,13 +23,12 @@
 		}elseif(empty($nome) || empty($cognome)){
 			$errors['']=' non inserita.'
 		}else{//controlla se l'email sia già inserita
-			$oid2=$mysqli->query("SELECT * FROM utente WHERE username='".$_POST['username']."' ");
-			if(mysqli_num_rows($oid2) > 0)
+			$oid=$mysqli->query("SELECT * FROM utente WHERE username='".$_POST['username']."' ");
+			if(mysqli_num_rows($oid) > 0)
 			{
 				$errors[]='Questa username è già registrata';
 			}
 		}	
-
 
 		if(count($errors) > 0){
 			foreach($errors as $key=>$error){
