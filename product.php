@@ -78,7 +78,6 @@
 	}
 	 
 
-
 	//tabella recensioni 
 	$body->setContent("rating",$utility->rating($id));
 	$body->setContent("reviews",$utility->reviews($id));
