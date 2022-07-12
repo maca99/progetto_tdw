@@ -24,19 +24,35 @@
                       </div>
 
                       <div class="form-group">
-                        <label class="form-label">Categoria</label>
-                          <select class="input-select"name="categoria" >
-                            <[carrello::view library="cart"]>
-                          </select>
-                      </label>
-                      </div>
-
-                      <div class="form-group">
                         <label class="form-label">Descrizione</label>
                         <span class="help"></span>
                         <div class="controls">
                           <textarea id="descrizione" name="descrizione" class="form-control" rows="10"></textarea>                    
                         </div>
+                      </div>  
+                      
+                      <div class="form-group">
+                        <label class="form-label">Descrizione breve</label>
+                        <span class="help"></span>
+                        <div class="controls">
+                          <textarea id="descrizione_breve" name="descrizione_breve" class="form-control" rows="2"></textarea>                    
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-label">Dettagli</label>
+                        <span class="help"></span>
+                        <div class="controls">
+                          <textarea id="dettagli" name="dettagli" class="form-control" rows="2"></textarea>                    
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-label">Categoria</label>
+                          <select class="input-select"name="categoria" >
+                            <[categoria::category library="utility"]>
+                          </select>
+                      </label>
                       </div>
 
                       <div class="form-group">

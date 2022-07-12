@@ -71,10 +71,9 @@
 
 			$result=$mysqli->query("SELECT idimmagine FROM `immagine` WHERE  prodotto_idprodotto = $id LIMIT 1");
 			if(mysqli_num_rows($result)!=1){
-				$img="<img src='dhtml/img/product02.png'>";
+				$img="<img src='dhtml/img/not_found.png'>";
                 $main->setContent("immagine",$img);
 				//prodotto senza immagine
-				exit();
 			}else{
 				while($row = mysqli_fetch_array($result)){
 					$tag=$row['idimmagine'];
@@ -103,10 +102,9 @@
     
                 $result=$mysqli->query("SELECT idimmagine FROM `immagine` WHERE  prodotto_idprodotto = $id LIMIT 1");
                 if(mysqli_num_rows($result)!=1){
-                    $img="<img src='dhtml/img/product02.png'>";
+                    $img="<img src='dhtml/img/not_found.png'>";
                     $main->setContent("immagine",$img);
                     //prodotto senza immagine
-                    exit();
                 }else{
                     while($row = mysqli_fetch_array($result)){
                         $tag=$row['idimmagine'];
@@ -210,8 +208,8 @@
                 $main= new Template("dhtml/webarch/option.html");
                 $oid=$mysqli->query("SELECT *  FROM categoria ");
                 while($data=$oid->fetch_array()) {
-                    $main->setContent("title", $data['nome_categoria']);
                     $main->setContent("value", $data['id_categoria']);
+                    $main->setContent("title", $data['nome_categoria']);
                 }
                 return $main->get();
             }

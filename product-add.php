@@ -10,13 +10,16 @@
 
     $nome=$_POST['nome'];
     $prezzo=$_POST['prezzo'];
-    $descrizione=trim($_POST['descrizione']);
+    $descrizione=$_POST['descrizione'];
+    $descrizione_breve=$_POST['descrizione_breve'];
+    $dettagli=$_POST['dettagli'];
+    $categoria=$_POST['categoria'];
 
 
     if(isset($_POST["submit"])){
 
         $oid = $mysqli->query("INSERT INTO prodotto  (id_prodotto,nome,prezzo,descrizione_breve,descrizione,dettagli,id_categoria) 
-        VALUES (NULL,'$nome','$prezzo','$descrizione','$descrizione','$descrizione',1)");
+        VALUES (NULL,'$nome','$prezzo','$descrizione_breve','$descrizione','$dettagli',$categoria)");
             
         if (!$oid) {
             echo $mysqli->error;
