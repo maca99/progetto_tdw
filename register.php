@@ -42,14 +42,13 @@
 			
 			if(!$oid){
 				echo $mysqli->error;
-				header("location: register.php");
 				exit();
 			}else{
 				//assegno all'utente appena creato i privilegi base
 				$id_user=$mysqli->insert_id;
 				$oid=$mysqli->query("INSERT INTO utente_has_gruppi(id_utente ,id_gruppo)
 					VALUES
-						('$id_user',1)";
+						('$id_user',1)");
 						//temporaneo
 				header("location: login.php");
 			}
