@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Creato il: Lug 10, 2022 alle 15:15
+-- Creato il: Lug 12, 2022 alle 20:02
 -- Versione del server: 8.0.27
 -- Versione PHP: 7.4.26
 
@@ -54,20 +54,12 @@ INSERT INTO `categoria` (`id_categoria`, `nome_categoria`) VALUES
 DROP TABLE IF EXISTS `cliente`;
 CREATE TABLE IF NOT EXISTS `cliente` (
   `idCliente` int NOT NULL,
-  `nome` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `cognome` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `id_utente` int NOT NULL,
   `città` varchar(15) NOT NULL,
   `stato` varchar(15) NOT NULL,
   `codice_fiscale` varchar(16) NOT NULL,
   PRIMARY KEY (`idCliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
---
--- Dump dei dati per la tabella `cliente`
---
-
-INSERT INTO `cliente` (`idCliente`, `nome`, `cognome`, `città`, `stato`, `codice_fiscale`) VALUES
-(1, 'matteo', 'cavasinni', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -99,8 +91,17 @@ INSERT INTO `color` (`id_color`, `nome_colore`) VALUES
 DROP TABLE IF EXISTS `gruppi`;
 CREATE TABLE IF NOT EXISTS `gruppi` (
   `idgruppi` int NOT NULL,
+  `nome_gruppo` varchar(15) NOT NULL,
   PRIMARY KEY (`idgruppi`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dump dei dati per la tabella `gruppi`
+--
+
+INSERT INTO `gruppi` (`idgruppi`, `nome_gruppo`) VALUES
+(1, 'cliente'),
+(2, 'admin');
 
 -- --------------------------------------------------------
 
@@ -131,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `immagine` (
   `type` enum('image:jpeg','image:png','','') CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`idimmagine`),
   KEY `fk_immagine_prodotto1_idx` (`prodotto_idprodotto`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dump dei dati per la tabella `immagine`
@@ -184,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `indirizzo` (
 
 DROP TABLE IF EXISTS `ordine`;
 CREATE TABLE IF NOT EXISTS `ordine` (
-  `id_ordine` int NOT NULL,
+  `id_ordine` int NOT NULL AUTO_INCREMENT,
   `utente_idCliente` int NOT NULL,
   `importo` decimal(10,0) UNSIGNED NOT NULL DEFAULT '0',
   `stato` tinyint DEFAULT NULL,
@@ -219,7 +220,7 @@ CREATE TABLE IF NOT EXISTS `ordine_has_prodotto` (
 
 DROP TABLE IF EXISTS `prodotto`;
 CREATE TABLE IF NOT EXISTS `prodotto` (
-  `id_prodotto` int NOT NULL,
+  `id_prodotto` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) DEFAULT NULL,
   `prezzo` varchar(45) DEFAULT NULL,
   `descrizione_breve` text,
@@ -229,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `prodotto` (
   `id_categoria` int DEFAULT NULL,
   PRIMARY KEY (`id_prodotto`),
   KEY `id_categoria` (`id_categoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dump dei dati per la tabella `prodotto`
@@ -240,7 +241,9 @@ INSERT INTO `prodotto` (`id_prodotto`, `nome`, `prezzo`, `descrizione_breve`, `d
 (2, 'Macbook', '2000', '\r\n    Una batteria che dura tutto il giorno – Fai ancora di più grazie a un’autonomia incredibile: fino a 18 ore (varia a seconda dell’uso).\r\n    Più potenza – È pronto ad affrontare anche le sfide più impegnative, come il montaggio video professionale e i giochi più adrenalinici. Il chip Apple M1 con CPU 8-core offre prestazioni fino a 3,5 volte più veloci rispetto alla generazione precedente, consumando meno energia.\r\n    Memoria ultraveloce – 8GB di memoria unificata rendono l’intero sistema più fluido e reattivo: va come il vento anche quando navighi con tanti pannelli nel browser o apri pesanti file di grafica.\r\n    Display spettacolare – Sul display Retina da 13,3\", le immagini hanno un livello di dettaglio incredibile, il testo è nitido e definito, e i colori sono più brillanti.\r\n    Perché Mac – È intuitivo, facile da configurare, straordinariamente potente e subito pronto a tutto, con app che puoi usare fin dal primo momento. Il Mac è progettato per farti lavorare, giocare e creare come mai prima d’ora.\r\n    Compatibili. Semplicemente – Il Mac funziona con tutte le app che hai già, come Adobe Creative Cloud, Microsoft 365 e Google Drive. In più puoi usare le tue app per iPhone e iPad direttamente su macOS. Metti insieme tutto questo e avrai accesso al catalogo di app per Mac più completo che si sia mai visto. A tua disposizione sull’App Store.\r\n    Intuitivo – Se hai già un iPhone, su MacBook Air ti sentirai a casa fin dal primo istante. E funziona in perfetta sintonia con i tuoi dispositivi Apple. Qualche esempio? Puoi rispondere a messaggi e chiamate direttamente dal Mac, o usare l’iPad come secondo display e avere più spazio per lavorare.\r\n', 'Apple PC Portatile MacBook Air 2020: Chip App', 'Apple PC Portatile MacBook Air 2020: Chip App', '2022-07-02 10:12:26', 1),
 (3, 'Apple iPhone 13', '824', '\r\n    Display Super Retina XDR da 6,1\"\r\n    Modalità Cinema con profondità di campo smart e spostamento automatico della messa a fuoco nei video\r\n    Evoluto sistema a doppia fotocamera da 12MP (grandangolo e ultra-grandangolo) con Stili fotografici, Smart HDR 4, modalità Notte e registrazione video HDR a 4K con Dolby Vision\r\n    Fotocamera anteriore TrueDepth da 12MP con modalità Notte e registrazione video HDR a 4K con Dolby Vision\r\n    Chip A15 Bionic per prestazioni fulminee\r\n    Fino a 19 ore di riproduzione video\r\n    Robusto design con Ceramic Shield\r\n', '     Display Super Retina XDR da 6,1\"     Mod', '  Display Super Retina XDR da 6,1\"     Modali', '2022-07-02 10:14:25', 2),
 (4, 'PANASONIC FOTOCAMERA DIGITALE', '800', ' Immagini di qualità professionale per foto e video: il sensore a formato intero da 24,2 MP senza filtro passa-basso garantisce una grande gamma dinamica, tecnologia ISO dual native-per una qualità dell\'immagine molto silenziosa\r\nVideocamera ibrida compatta con sensore di formato completo: le registrazioni video professionali sono realizzabili con un massimo di 4K 60p, 4:2:2 10 bit, con diaframma dinamico a 14+ in Vlog, HDR, rallentatore e più sobrio e diverse soluzioni audio\r\nMessa a fuoco rapida e precisa per foto e filmati: messa a fuoco automatica DFD ad alta velocità (0,08s) e bassa luminosità. Tecnologia Deep Learning per rilevare occhi, testa e corpo\r\nFotocamera digitale compatta con design di alta qualità e funzionamento intuitivo: mirino OLED, LCD orientabile liberamente, stabilizzatore alloggiamento a 5 assi e Dual I.S. (fino a 6,5 livelli di diaframma maggiore esposizione dalla mano)\r\nSistema estremamente maneggevole con baionetta a L per una vasta gamma di diversi obiettivi della baionetta a L con Sigma e Leica ', ' Immagini di qualità professionale per foto e', ' Immagini di qualità professionale per foto e', '2022-07-02 10:28:18', 3),
-(5, 'CUFFIE SONY ', '15', 'Sony WH-CH510 - Cuffie wireless on-ear - Bluetooth - compatibili con Google Assistant e Siri - Batteria fino a 35 ore - Ricarica Rapida (10 min. per 90 min. di riproduzione) - Nero ', 'Sony WH-CH510 - Cuffie wireless on-ear - Blue', 'Sony WH-CH510 - Cuffie wireless on-ear - Blue', '2022-07-02 10:31:09', 4);
+(5, 'CUFFIE SONY ', '15', 'Sony WH-CH510 - Cuffie wireless on-ear - Bluetooth - compatibili con Google Assistant e Siri - Batteria fino a 35 ore - Ricarica Rapida (10 min. per 90 min. di riproduzione) - Nero ', 'Sony WH-CH510 - Cuffie wireless on-ear - Blue', 'Sony WH-CH510 - Cuffie wireless on-ear - Blue', '2022-07-02 10:31:09', 4),
+(13, 'zgngzzmfmz', '1999', 'jstrtjrtj', 'jstrjsarjat', 'tsrjusur', '2022-07-12 18:27:31', 1),
+(14, 'zgngzzmfmz', '1999', 'jstrtjrtj', 'jstrjsarjat', 'tsrjusur', '2022-07-12 22:02:07', 1);
 
 -- --------------------------------------------------------
 
@@ -323,6 +326,7 @@ INSERT INTO `recensione` (`id_recensione`, `id_prodotto`, `voto`, `commento`, `d
 DROP TABLE IF EXISTS `servizi`;
 CREATE TABLE IF NOT EXISTS `servizi` (
   `idservizi` int NOT NULL,
+  `script` varchar(15) NOT NULL,
   PRIMARY KEY (`idservizi`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -350,40 +354,26 @@ INSERT INTO `size` (`id_size`, `misure`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `spedizione`
---
-
-DROP TABLE IF EXISTS `spedizione`;
-CREATE TABLE IF NOT EXISTS `spedizione` (
-  `idspedizione` int NOT NULL,
-  `ordine_id_ordine` int NOT NULL,
-  PRIMARY KEY (`idspedizione`,`ordine_id_ordine`),
-  KEY `fk_spedizione_ordine1_idx` (`ordine_id_ordine`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
--- --------------------------------------------------------
-
---
 -- Struttura della tabella `utente`
 --
 
 DROP TABLE IF EXISTS `utente`;
 CREATE TABLE IF NOT EXISTS `utente` (
-  `idUtente` int NOT NULL,
-  `cliente_idCliente` int NOT NULL,
+  `idUtente` int NOT NULL AUTO_INCREMENT,
   `email` varchar(15) NOT NULL,
   `password` varchar(15) NOT NULL,
-  PRIMARY KEY (`idUtente`,`cliente_idCliente`),
-  UNIQUE KEY `email` (`email`),
-  KEY `fk_Utente_cliente1_idx` (`cliente_idCliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  `nome` varchar(15) NOT NULL,
+  `cognome` int NOT NULL,
+  PRIMARY KEY (`idUtente`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dump dei dati per la tabella `utente`
 --
 
-INSERT INTO `utente` (`idUtente`, `cliente_idCliente`, `email`, `password`) VALUES
-(1, 1, '1@1.it', 'password');
+INSERT INTO `utente` (`idUtente`, `email`, `password`, `nome`, `cognome`) VALUES
+(1, '1@1.it', 'password', '', 0);
 
 -- --------------------------------------------------------
 
@@ -408,12 +398,11 @@ CREATE TABLE IF NOT EXISTS `utente_has_gruppi` (
 
 DROP TABLE IF EXISTS `whishlist`;
 CREATE TABLE IF NOT EXISTS `whishlist` (
-  `idUtente` int NOT NULL,
-  `Utente_idUtente` int NOT NULL,
-  `Utente_cliente_idCliente` int NOT NULL,
+  `id_Whishlist` int NOT NULL,
+  `id_cliente` int NOT NULL,
   `nome_lista` varchar(20) NOT NULL,
-  PRIMARY KEY (`idUtente`,`Utente_idUtente`,`Utente_cliente_idCliente`),
-  KEY `fk_carrello_Utente1_idx` (`Utente_idUtente`,`Utente_cliente_idCliente`)
+  PRIMARY KEY (`id_Whishlist`),
+  KEY `fk_cliente` (`id_cliente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -424,13 +413,10 @@ CREATE TABLE IF NOT EXISTS `whishlist` (
 
 DROP TABLE IF EXISTS `whishlist_has_prodotto`;
 CREATE TABLE IF NOT EXISTS `whishlist_has_prodotto` (
-  `carrello_idUtente` int NOT NULL,
-  `carrello_Utente_idUtente` int NOT NULL,
-  `carrello_Utente_cliente_idCliente` int NOT NULL,
-  `prodotto_idprodotto` int NOT NULL,
-  PRIMARY KEY (`carrello_idUtente`,`carrello_Utente_idUtente`,`carrello_Utente_cliente_idCliente`,`prodotto_idprodotto`),
-  KEY `fk_carrello_has_prodotto_prodotto2_idx` (`prodotto_idprodotto`),
-  KEY `fk_carrello_has_prodotto_carrello1_idx` (`carrello_idUtente`,`carrello_Utente_idUtente`,`carrello_Utente_cliente_idCliente`)
+  `id_whishlist` int NOT NULL,
+  `id_prodotto` int NOT NULL,
+  KEY `fk_carrello_has_prodotto_prodotto2_idx` (`id_prodotto`),
+  KEY `fk_whishlist` (`id_whishlist`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
@@ -445,12 +431,6 @@ ALTER TABLE `gruppi_has_servizi`
   ADD CONSTRAINT `fk_gruppi_has_servizi_servizi1` FOREIGN KEY (`servizi_idservizi`) REFERENCES `servizi` (`idservizi`);
 
 --
--- Limiti per la tabella `immagine`
---
-ALTER TABLE `immagine`
-  ADD CONSTRAINT `fk_immagine_prodotto1` FOREIGN KEY (`prodotto_idprodotto`) REFERENCES `prodotto` (`id_prodotto`);
-
---
 -- Limiti per la tabella `indirizzo`
 --
 ALTER TABLE `indirizzo`
@@ -463,13 +443,6 @@ ALTER TABLE `ordine`
   ADD CONSTRAINT `fk_ordine_utente1` FOREIGN KEY (`utente_idCliente`) REFERENCES `cliente` (`idCliente`);
 
 --
--- Limiti per la tabella `ordine_has_prodotto`
---
-ALTER TABLE `ordine_has_prodotto`
-  ADD CONSTRAINT `fk_carrello_has_prodotto_ordine1` FOREIGN KEY (`ordine_id_ordine`) REFERENCES `ordine` (`id_ordine`),
-  ADD CONSTRAINT `hsddjhvcv` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
 -- Limiti per la tabella `prodotto`
 --
 ALTER TABLE `prodotto`
@@ -479,53 +452,32 @@ ALTER TABLE `prodotto`
 -- Limiti per la tabella `prodotto_has_color`
 --
 ALTER TABLE `prodotto_has_color`
-  ADD CONSTRAINT `fk_color` FOREIGN KEY (`id_color`) REFERENCES `color` (`id_color`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `fk_prodotto` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `fk_color` FOREIGN KEY (`id_color`) REFERENCES `color` (`id_color`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Limiti per la tabella `prodotto_has_size`
 --
 ALTER TABLE `prodotto_has_size`
-  ADD CONSTRAINT `fk_prodotto_size` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   ADD CONSTRAINT `fk_size_prodotto` FOREIGN KEY (`id_size`) REFERENCES `size` (`id_size`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-
---
--- Limiti per la tabella `recensione`
---
-ALTER TABLE `recensione`
-  ADD CONSTRAINT `fk_recensione_prodotto1` FOREIGN KEY (`id_prodotto`) REFERENCES `prodotto` (`id_prodotto`);
-
---
--- Limiti per la tabella `spedizione`
---
-ALTER TABLE `spedizione`
-  ADD CONSTRAINT `fk_spedizione_ordine1` FOREIGN KEY (`ordine_id_ordine`) REFERENCES `ordine` (`id_ordine`);
-
---
--- Limiti per la tabella `utente`
---
-ALTER TABLE `utente`
-  ADD CONSTRAINT `fk_Utente_cliente1` FOREIGN KEY (`cliente_idCliente`) REFERENCES `cliente` (`idCliente`);
 
 --
 -- Limiti per la tabella `utente_has_gruppi`
 --
 ALTER TABLE `utente_has_gruppi`
-  ADD CONSTRAINT `fk_Utente_has_gruppi_gruppi1` FOREIGN KEY (`gruppi_idgruppi`) REFERENCES `gruppi` (`idgruppi`),
-  ADD CONSTRAINT `fk_Utente_has_gruppi_Utente1` FOREIGN KEY (`Utente_idUtente`) REFERENCES `utente` (`idUtente`);
+  ADD CONSTRAINT `fk_utente` FOREIGN KEY (`Utente_idUtente`) REFERENCES `utente` (`idUtente`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `fk_Utente_has_gruppi_gruppi1` FOREIGN KEY (`gruppi_idgruppi`) REFERENCES `gruppi` (`idgruppi`);
 
 --
 -- Limiti per la tabella `whishlist`
 --
 ALTER TABLE `whishlist`
-  ADD CONSTRAINT `fk_carrello_Utente1` FOREIGN KEY (`Utente_idUtente`,`Utente_cliente_idCliente`) REFERENCES `utente` (`idUtente`, `cliente_idCliente`);
+  ADD CONSTRAINT `fk_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`idCliente`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Limiti per la tabella `whishlist_has_prodotto`
 --
 ALTER TABLE `whishlist_has_prodotto`
-  ADD CONSTRAINT `fk_carrello_has_prodotto_carrello1` FOREIGN KEY (`carrello_idUtente`,`carrello_Utente_idUtente`,`carrello_Utente_cliente_idCliente`) REFERENCES `whishlist` (`idUtente`, `Utente_idUtente`, `Utente_cliente_idCliente`),
-  ADD CONSTRAINT `fk_carrello_has_prodotto_prodotto2` FOREIGN KEY (`prodotto_idprodotto`) REFERENCES `prodotto` (`id_prodotto`);
+  ADD CONSTRAINT `fk_whishlist` FOREIGN KEY (`id_whishlist`) REFERENCES `whishlist` (`id_Whishlist`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

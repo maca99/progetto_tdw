@@ -1,0 +1,89 @@
+<h3>Modifica <span class="semi-bold">Prodotto</span></h3>
+
+<form class="notify" method="POST" action="product-add.php" enctype="multipart/form-data">
+  <input type="hidden" name="step" id="step" value="1">
+  <div class="grid-body no-border"> <br>
+    <div class="row">
+      <div class="col-md-8 col-sm-8 col-xs-8">
+
+        <div class="form-group">
+          <label class="form-label">Nome</label>
+          <span class="help">es.: "Computer, Auricolari..."</span>
+          <div class="controls">
+            <input type="text" name="nome" id="nome" class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Prezzo</label>
+          <span class="help">€€€</span>
+          <div class="controls">
+            <input type="number" name="prezzo" id="prezzo" class="form-control">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Descrizione</label>
+          <span class="help"></span>
+          <div class="controls">
+            <textarea id="descrizione" name="descrizione" class="form-control" rows="10"></textarea>                    
+          </div>
+        </div>  
+        
+        <div class="form-group">
+          <label class="form-label">Descrizione breve</label>
+          <span class="help"></span>
+          <div class="controls">
+            <textarea id="descrizione_breve" name="descrizione_breve" class="form-control" rows="2"></textarea>                    
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Dettagli</label>
+          <span class="help"></span>
+          <div class="controls">
+            <textarea id="dettagli" name="dettagli" class="form-control" rows="2"></textarea>                    
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Categoria</label>
+            <select class="input-select"name="categoria" >
+              <[categoria::category library="utility"]>
+            </select>
+        </label>
+        </div>
+
+        <div class="form-group">
+            <label>Inserisci le immagini del prodotto:</label>
+
+            <input type="file" id = "img" name="userImage" accept="image/*" onchange="loadFile(event)">
+            <img id="output"/>
+            <script>
+              var loadFile = function(event) {
+                var output = document.getElementById('output');
+                output.src = URL.createObjectURL(event.target.files[0]);
+                output.onload = function() {
+                  URL.revokeObjectURL(output.src) // free memory
+                }
+              };
+            </script>
+        </div>
+
+
+        <div class="form-group">
+      
+          <div class="controls">
+            <button class="btn btn-primary" type="submit" name="submit" value="">Aggiungi</button>
+
+          </div>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</form>
+</div>
+</div>
+</div>
+</div>
