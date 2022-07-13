@@ -7,23 +7,24 @@
     $main= new Template("dhtml/blank-min.html");
     $utility=new utility();
 
-    $result=$mysqli->query("SELECT id_prodotto,nome FROM prodotto");
+    $result=$mysqli->query("SELECT * FROM prodotto LEFT JOIN (categoria) ON( prodotto.id_categoria=categoria.id_categoria)");
     while($row=mysqli_fetch_array($result)){
-        $body->setContent("product",$row['nome']);
-        $body->setContent("id_prodotto",$row['id_prodotto']);
+        $body->setContent("nome",$row['nome']);
+        $body->setContent("categoria",$row['nome_categoria']);
+        $img=$mysqli->query("SELECT idimmagine FROM immagine WHERE prodotto_idprodotto='".$row['id_prodotto']."' LIMIT 1");
+        if(mysqli_num_rows($img)<1){
+            $body->setContent("immagine","<img src='dhtml/img/not_found.png'>");
+        }else{
+            $res=mysqli_fetch_array($img);
+            $tag=$tag=$res['idimmagine'];
+            $body->setContent("immagine","<img src=show.php?id=$tag>");
+        }
+
     }
 
-    if(isset($_POST['id_prodotto'])){
 
-    $id = mysqli_real_escape_string($mysqli,$_POST['id_prodotto']);
+ 
 
-    $del = $mysqli -> query("DELETE FROM prodotto WHERE id_prodotto = '".$id."'") or die(mysqli_error($mysqli));
-    if($del){
-        echo "deleted";
-    } else{
-        echo "error";
-    }
-    }
     $main->setContent("body",$body->get());
     $main->close();
 ?>
