@@ -1,17 +1,19 @@
 <form  method="post" action='product-list.php'>
     <table border=1 frame=void rules=rows>
         <tr>
-            <th width="5%">Id</th>
-            <th width="90%">Prodotto</th>
+            <th width="5%">N°</th>
+            <th width="70%">Immagine</th>
+            <th width="70%">Prodotto</th>
+            <th width="80%">Categoria</th>
             <th width="5%">Azione</th>
         </tr>
         <[foreach]>
         <tr>
             <td><[id_prodotto]></td>
-            <td class="product-name"><[product]></td>
-
- <!--           <td><a href="product-list.php?id=<[id_prodotto]>">Delete</a></td> -->
-            <td><button type="submit" name="delete" class="btn btn-primary" >Rimuovi</button>
+            <td><[immagine]></td>
+            <td class="product-name"><[nome]></td>
+            <td class="product-name"><[categoria]></td>
+            <td><button type="submit" name="delete" class="btn btn-danger" >Rimuovi</button>
                 <input type="hidden" name="id_prodotto" value="<[id_prodotto]>"></td>
         </tr>
         <[/foreach]>

@@ -27,9 +27,6 @@
         if (!$oid) {
             echo $mysqli->error;
             $main->setContent("message", "10");
-        } else {
-            $main->setContent("message", "00");
-        }
     }
 
 
