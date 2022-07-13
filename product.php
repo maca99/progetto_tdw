@@ -65,12 +65,18 @@
 
 	//immaginni prodotto
 	$result=$mysqli->query("SELECT idimmagine FROM `immagine` WHERE  prodotto_idprodotto = $id");
-	 while($row = mysqli_fetch_array($result)){
-        $id_immagine = $row['idimmagine'];
-		$body->setContent("immagini","<img src=show.php?id=$id_immagine>");
-        $body->setContent("immagine","<img src=show.php?id=$id_immagine>");
-    }
-
+	if(mysqli_num_rows($result) > 0){
+		while($row = mysqli_fetch_array($result)){
+			$id_immagine = $row['idimmagine'];
+			$body->setContent("immagini","<img src=show.php?id=$id_immagine>");
+			$body->setContent("immagine","<img src=show.php?id=$id_immagine>");
+		}
+	}else{
+		$img="<img src='dhtml/img/not_found.png'>";
+		$body->setContent("immagine",$img);
+		$body->setContent("immagini",$img);
+	}
+	 
 
 	//tabella recensioni 
 	$body->setContent("rating",$utility->rating($id));

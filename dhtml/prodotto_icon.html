@@ -25,8 +25,11 @@
 		</div>
 		</form>
 	</div>
+	
 	<div class="add-to-cart">
-		<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+		<form action="update-carrello.php" method="get">
+			<input type="hidden" name="product" value="<[id_prodotto]>">
+		<button class="add-to-cart-btn" name="action" value="add"><i class="fa fa-shopping-cart"></i> add to cart</button></form>
 	</div>
 </div>
 

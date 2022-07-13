@@ -3,6 +3,7 @@
     DEFINE('ERROR_SCRIPT_PERMISSION', 100);
     DEFINE('ERROR_USER_NOT_LOGGED', 200);
     DEFINE('ERROR_OWNERSHIP', 200);
+    require "dbms.inc.php";
 
     function crypto($pass) {
 
@@ -35,9 +36,10 @@
 
     if (isset($_POST['username']) and isset($_POST['password'])) {
 
+
         $oid = $mysqli->query("
-            SELECT username, name, surname, email 
-            FROM user 
+            SELECT username, nome,cognome
+            FROM utente
             WHERE username = '".$_POST['username']."'
             AND password = '".crypto($_POST['password'])."'");
 
@@ -53,13 +55,11 @@
         
             //prende gli script che il gruppo dell'utente può vedere
             $oid = $mysqli->query("
-                SELECT DISTINCT script FROM user 
-                LEFT JOIN user_has_ugroup
-                ON user_has_ugroup.user_username = user.username
-                LEFT JOIN ugroup_has_service
-                ON ugroup_has_service.ugroup_id = user_has_ugroup.ugroup_id 
-                LEFT JOIN service
-                ON service.id = ugroup_has_service.service_id
+                SELECT DISTINCT script FROM utente 
+                LEFT JOIN (utente_has_gruppi,gruppi,gruppi_has_servizi,servizi) 
+                ON(utente.username=utente_has_gruppi.Utente_username 
+                AND utente_has_gruppi.Gruppi_id_gruppi=gruppi.idgruppi 
+                AND gruppi_has_servizi.servizi_idservizi=servizi.idservizi)
                 WHERE username = '".$_POST['username']."'");
             
             if (!$oid) {
@@ -83,7 +83,7 @@
             }
         
         } else {
-            Header("Location: login.php");
+            Header("Location: login.php?not_auth");
             exit;
         }
 
@@ -93,7 +93,7 @@
             Header("Location: login.php?not_auth");
             exit;
         } else {
-
+            Header("Location: index.php");
             // user logged
 
         }

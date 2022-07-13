@@ -1,20 +1,32 @@
 <?php
     require "include/dbms.inc.php";
+    session_start();
+
 
     //post: id_prodotto,name,email,text,rating
-    $id_prodotto=$_POST['id_prodotto'];
-    $name = (isset($_POST['name'])) ? trim($_POST['name']) : '';
-    $text = (isset($_POST['text'])) ? trim($_POST['text']) : '';
-    $rating = (isset($_POST['rating'])) ? trim($_POST['rating']) : '';
-    $email = (isset($_POST['email'])) ? trim($_POST['email']) : '';
-    $data=now();
+    $id_prodotto=$_POST['product'];
+    $name = (isset($_POST['name'])) ? $_POST['name'] : '';
+    $commento = (isset($_POST['text'])) ? $_POST['text'] : '';
+    $voto = (isset($_POST['rating'])) ? $_POST['rating'] : '';
+    $email = (isset($_POST['email'])) ? $_POST['email'] : '';
 
-    if(empty($name)||empty($email)||empty($text)||empty($rating)){
-        header("redirect: product.php?product_code=$id_prodotto");
+    if(empty($name)||empty($email)||empty($commento)||empty($voto)){
+        header("Location: product.php?product_code=$id_prodotto");
     }
+    //controllo se l'utente ha già fatto una recensione e in caso la modifico
+    $oid=$mysqli->query("SELECT * FROM recensione WHERE id_prodotto='$id_prodotto' AND email='$email'");
+    echo $mysqli->error;
+ 
+    if(mysqli_num_rows($oid)!=0){
+        $oid=$mysqli->query("UPDATE recensione SET voto='$voto',commento='$commento' WHERE email='$email' AND id_prodotto='$id_prodotto");
+    }else{
+    $oid=$mysqli->query("INSERT INTO recensione(id_recensione,id_prodotto,voto,commento,name,email)
+            VALUES (NULL,'$id_prodotto','$voto','$commento','$name','$email')");  
+    }
+    echo $mysqli->error;
+    
 
-    $mysqli->query("INSERT INTO recensione(prodotto_idprodotto,voto,commento,data,name,email)
-    VALUES ($id_prodotto,$rating,$text,$data,$name,$email)");
-
+    //temporanea poi reindirizzo alla pagina di tutte le recensioni
+    header("Location: product.php?product_code=".$id_prodotto);
     
 ?>
