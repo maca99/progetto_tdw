@@ -1,7 +1,10 @@
 <!-- Reviews -->
 <div class="col-md-6">
-    <div id="reviews">
-        <ul class="reviews"><[foreach]>
+    <[product]>
+<p>Miniatura immagine</p>
+<h1><[error]></h1>
+    <div id="reviews"><[foreach]>
+        <ul class="reviews">
             <li>
                 
                 <div class="review-heading">
@@ -13,22 +16,15 @@
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star-o empty"></i>
-                        
                     </div>
                 </div>
                 <div class="review-body">
                     <p><[commento]></p>
+
                 </div>
                 
-            </li><[/foreach]>
-            <li>
-        </ul>
-        <ul class="reviews-pagination">
-            <form action="reviews_list.php" method="GET">
-            <input type="hidden" name="product_code" value="<[id_prodotto]>">
-            <button class="primary-btn">Tutte le recensioni</button>
-            </form>
-        </ul>
+            </li>
+        </ul><[/foreach]>
     </div>
 </div>
 <!-- /Reviews -->
