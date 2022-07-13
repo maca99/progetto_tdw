@@ -6,11 +6,7 @@
     $id = mysqli_real_escape_string($mysqli,$_POST['id_prodotto']);
 
     $del = $mysqli -> query("DELETE FROM prodotto WHERE id_prodotto = '".$id."'") or die(mysqli_error($mysqli));
-    if($del){
-        echo "deleted";
-    } else{
-        echo "error";
-    }
+    
     }
 
 ?>
