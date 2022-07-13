@@ -3,6 +3,7 @@
     DEFINE('ERROR_SCRIPT_PERMISSION', 100);
     DEFINE('ERROR_USER_NOT_LOGGED', 200);
     DEFINE('ERROR_OWNERSHIP', 200);
+    require "dbms.inc.php";
 
     function crypto($pass) {
 
@@ -35,7 +36,6 @@
 
     if (isset($_POST['username']) and isset($_POST['password'])) {
 
-        global $mysqli;
 
         $oid = $mysqli->query("
             SELECT username, nome,cognome
@@ -83,7 +83,7 @@
             }
         
         } else {
-            Header("Location: login.php");
+            Header("Location: login.php?not_auth");
             exit;
         }
 
