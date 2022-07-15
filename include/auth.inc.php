@@ -3,7 +3,6 @@
     DEFINE('ERROR_SCRIPT_PERMISSION', 100);
     DEFINE('ERROR_USER_NOT_LOGGED', 200);
     DEFINE('ERROR_OWNERSHIP', 200);
-    require "dbms.inc.php";
 
     function crypto($pass) {
 
@@ -33,12 +32,12 @@
         }
 
     }
-
+    global $mysqli;
     if (isset($_POST['username']) and isset($_POST['password'])) {
 
 
         $oid = $mysqli->query("
-            SELECT username, nome,cognome
+            SELECT username,nome,cognome,email
             FROM utente
             WHERE username = '".$_POST['username']."'
             AND password = '".crypto($_POST['password'])."'");
@@ -83,7 +82,7 @@
             }
         
         } else {
-            Header("Location: login.php?not_auth");
+            Header("Location: progetto_tdw/login.php");
             exit;
         }
 
@@ -102,6 +101,7 @@
     // user is logged
 
     if (!isset($_SESSION['user']['script'][basename($_SERVER['SCRIPT_NAME'])])) {
+        //controlla se l'utente ha i permessi per quella pagina
         Header("Location: error.php?code=".ERROR_SCRIPT_PERMISSION);
         exit;
     }
