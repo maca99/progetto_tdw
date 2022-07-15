@@ -82,8 +82,8 @@
             }
         
         } else {
-            Header("Location: progetto_tdw/login.php");
-            exit;
+            Header("Location: login.php");
+            exit();
         }
 
     } else {
@@ -92,7 +92,6 @@
             Header("Location: login.php?not_auth");
             exit;
         } else {
-            Header("Location: index.php");
             // user logged
 
         }
