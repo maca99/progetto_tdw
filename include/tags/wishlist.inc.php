@@ -16,7 +16,7 @@
                                                 AND wishlist.id_wishlist=wishlist_has_prodotto.id_wishlist 
                                                 AND wishlist_has_prodotto.id_prodotto=prodotto.id_prodotto) 
                                                 WHERE utente.username='$user'");
-                    if($oid != null){
+                    if($oid){
                        $data=$oid->fetch_assoc(); 
                        $number=$data['prodotti'];
                     }

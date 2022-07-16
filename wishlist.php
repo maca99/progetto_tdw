@@ -10,8 +10,6 @@ session_start();
     
     
 
-    
-
     $main->setContent("body",$body->get());
     $main->close();
 ?>
