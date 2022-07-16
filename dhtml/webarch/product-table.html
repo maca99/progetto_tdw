@@ -1,0 +1,19 @@
+<table>
+        <tr>
+            <th width="50%">Prodotto</th>
+            <th width="20%">Quantità</th>
+            <th width="20%">Prezzo</th>
+            <th width="5%">Azione</th>
+        </tr>
+           
+
+<[foreach]>
+            <tr>
+                <td class="product-name"><[nome]></td>
+                <td class="product-name"><[quantity]></td>
+                <td class="product-name"><[prezzo]></td>
+                <td><button type="submit" href name="delete" class="btn btn-danger" >Rimuovi</button>
+            </tr>
+<[/foreach]>
+</table>
+<div> <h3> Totale: <[totale]> $</h3></div>

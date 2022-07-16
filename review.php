@@ -1,6 +1,7 @@
 <?php
-    require "include/dbms.inc.php";
     session_start();
+    require "include/dbms.inc.php";
+    
 
 
     //post: id_prodotto,name,email,text,rating

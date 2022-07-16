@@ -32,12 +32,14 @@
         }
 
     }
-    global $mysqli;
+
     if (isset($_POST['username']) and isset($_POST['password'])) {
 
+        $username=$_POST['username'];
+        $password=crypto($_POST['password']);
 
         $oid = $mysqli->query("
-            SELECT username,nome,cognome,email
+            SELECT name,surname,username,email
             FROM utente
             WHERE username = '".$_POST['username']."'
             AND password = '".crypto($_POST['password'])."'");
@@ -53,24 +55,27 @@
             $_SESSION['user'] = $user;
         
             //prende gli script che il gruppo dell'utente può vedere
-            $oid = $mysqli->query("
-                SELECT DISTINCT script FROM utente 
-                LEFT JOIN (utente_has_gruppi,gruppi,gruppi_has_servizi,servizi) 
-                ON(utente.username=utente_has_gruppi.Utente_username 
-                AND utente_has_gruppi.Gruppi_id_gruppi=gruppi.idgruppi 
-                AND gruppi_has_servizi.servizi_idservizi=servizi.idservizi)
-                WHERE username = '".$_POST['username']."'");
+            $result = $mysqli->query("
+            SELECT DISTINCT script FROM utente LEFT JOIN (utente_has_gruppi,gruppi,gruppi_has_servizi,servizi)
+            ON(utente.username=utente_has_gruppi.Utente_username 
+            AND utente_has_gruppi.Gruppi_id_gruppi=gruppi.idgruppi 
+            AND gruppi_has_servizi.servizi_idservizi=servizi.idservizi) 
+            WHERE utente.username='".$_POST['username']."'");
             
-            if (!$oid) {
+            if (!$result) {
                 trigger_error("Generic error, level 40", E_USER_ERROR);
             }
+            
+            if(mysqli_num_rows($result) == 1){
+              //header("Location:login.php?error");
+                exit;
+            }
+            $scripts=array();
+            while($data=$result->fetch_assoc()){
+                $scripts[$data['script']]=true;
+            }
+            
 
-            do {
-                $data = $oid->fetch_assoc();
-                if ($data) {
-                    $scripts[$data['script']] = true;
-                }
-            } while ($data);
             
             $_SESSION['user']['script'] = $scripts;
         
@@ -82,24 +87,23 @@
             }
         
         } else {
-            Header("Location: progetto_tdw/login.php");
-            exit;
+            Header("Location: login.php");
+            echo $mysqli->error;
+            exit();
         }
 
     } else {
         if (!isset($_SESSION['auth'])) {
             $_SESSION['referrer'] = basename($_SERVER['SCRIPT_NAME']);
             Header("Location: login.php?not_auth");
+            
             exit;
         } else {
-            Header("Location: index.php");
-            // user logged
 
         }
     }
 
     // user is logged
-
     if (!isset($_SESSION['user']['script'][basename($_SERVER['SCRIPT_NAME'])])) {
         //controlla se l'utente ha i permessi per quella pagina
         Header("Location: error.php?code=".ERROR_SCRIPT_PERMISSION);
