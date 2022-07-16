@@ -47,6 +47,29 @@
                 $main->setContent("num_item",$num_item);
                 return $main->get();
         }
+
+        function cart_list($name,$data,$pars){
+            global $mysqli;
+                $main=new Template("dhtml\webarch\product-table.html");
+                $totale=0;
+                if(isset($_SESSION['cart'])){
+                    foreach($_SESSION['cart'] as $item){
+                        $id=$item['id'];
+                        $oid=$mysqli->query("SELECT nome,prezzo FROM prodotto WHERE prodotto.id_prodotto=$id");
+                        $data = $oid->fetch_assoc();
+
+                        //dati
+                        $main->setContent("nome", $data['nome']);
+                        $main->setContent("prezzo", $data['prezzo']);
+                        $main->setContent("quantity",$item['quantity']);
+
+                        $totale=$totale+($item['quantity']*$data['prezzo']);
+                    }
+                }
+                $main->setContent("totale",$totale);
+                return $main->get();
+
+        }
         
         function checkout_list($name,$data,$pars){
 
