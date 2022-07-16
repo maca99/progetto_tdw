@@ -44,12 +44,15 @@
 					(NULL, '$username', '$password', '$nome','$email', '$cognome')");
 			
 			if($oid){
+				$id=mysqli_insert_id($mysqli);
+				$result=$mysqli->query("INSERT INTO cliente (id_utente) VALUES ('$id')");
+				if(!$result){echo $mysqli->error; exit;}
 				//assegno all'utente appena creato i privilegi base
 				$result=$mysqli->query("INSERT INTO utente_has_gruppi(Utente_username ,Gruppi_id_gruppi)
 					VALUES
 						('$username','1')");
 				if($result){
-					header("Location:login.php");
+					header("Location:update-profilo.php");
 				}else{
 					echo $mysqli->error;
 				}
