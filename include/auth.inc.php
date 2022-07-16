@@ -32,12 +32,14 @@
         }
 
     }
-    global $mysqli;
+
     if (isset($_POST['username']) and isset($_POST['password'])) {
 
+        $username=$_POST['username'];
+        $password=crypto($_POST['password']);
 
         $oid = $mysqli->query("
-            SELECT username,nome,cognome,email
+            SELECT *
             FROM utente
             WHERE username = '".$_POST['username']."'
             AND password = '".crypto($_POST['password'])."'");
@@ -83,6 +85,7 @@
         
         } else {
             Header("Location: login.php");
+            echo $mysqli->error;
             exit();
         }
 
@@ -93,7 +96,7 @@
             exit;
         } else {
             // user logged
-
+            header("location: welcome.php");
         }
     }
 

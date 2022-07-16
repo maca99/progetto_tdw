@@ -4,7 +4,7 @@
         //funzione imposrtatnte
         function injectStyle(){}
 
-        public function login_icon($name,$data,$pars){
+        function icon($name,$data,$pars){
             $main=new Template("dhtml/webarch/login-icon.html");
             if(isset($_SESSION['auth']) && isset($_SESSION['user'])){
                 if($_SESSION['auth']){
