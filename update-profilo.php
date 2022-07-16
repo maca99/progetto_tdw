@@ -7,13 +7,27 @@
     $main=new Template("dhtml/blank-min.html");
     $body=new Template("dhtml/profile.html");
 
+
     if(isset($_POST['submit'])){
+        $indirizzo=mysqli_real_escape_string($mysqli,$_POST['indirizzo']);
+        $citta=mysqli_real_escape_string($mysqli,$_POST['citta']);
+        $paese=mysqli_real_escape_string($mysqli,$_POST['paese']);
+        $cap=mysqli_real_escape_string($mysqli,$_POST['cap']);
+        $telefono=mysqli_real_escape_string($mysqli,$_POST['tel']);
+
+
         $oid=$mysqli->query("UPDATE cliente 
-                            SET  indirizzo='".$_POST['inidrizzo']."',citta='".$_POST['citta']."',paese='".$_POST['paese']."',cap='".$_POST['cap']."',telefono='".$_POST['telefono']."'  
-                            WHERE cliente.username='".$_SESSION['user']['username']."'");
+                            SET indirizzo='$indirizzo',citta='$citta',paese='$paese',cap='$cap',telefono='$telefono'
+                             WHERE username='".$_SESSION['user']['username']."'");
         if($oid){
             header("Location: index.php");
+        }else{
+            echo $mysqli->error;
+            exit;
         }
+            
+
+        
     }
 
 
