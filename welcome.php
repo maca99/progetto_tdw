@@ -9,6 +9,7 @@
 
     $body->setContent("email",$_SESSION['user']['email']);
 
+
     $main->setContent("body", $body->get());
     $main->close();
 ?>

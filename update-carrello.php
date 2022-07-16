@@ -1,6 +1,7 @@
 <?php
-require "include/dbms.inc.php";
 session_start();
+require "include/dbms.inc.php";
+
     
     $product=isset($_REQUEST['product'])? $_REQUEST['product']:"";
     $action=$_REQUEST['action'];

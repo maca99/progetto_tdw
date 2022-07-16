@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require "include/dbms.inc.php";
 
     if(isset($_POST['id_prodotto'])){
