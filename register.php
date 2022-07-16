@@ -44,12 +44,45 @@
 					(NULL, '$username', '$password', '$nome','$email', '$cognome')");
 			
 			if($oid){
+				$result=$mysqli->query("INSERT INTO cliente (username) VALUES ('$username')");
+				if(!$result){echo $mysqli->error; exit;}
+				$result=$mysqli->query("INSERT INTO wishlist (username) VALUES ('$username')");
+				if(!$result){echo $mysqli->error; exit;}
 				//assegno all'utente appena creato i privilegi base
 				$result=$mysqli->query("INSERT INTO utente_has_gruppi(Utente_username ,Gruppi_id_gruppi)
 					VALUES
 						('$username','1')");
 				if($result){
-					header("Location:login.php");
+					$user=array();
+					$user['username']=$username;
+					$user['name']=$nome;
+					$user['surname']=$cognome;
+					$user['email']=$email;
+					$_SESSION['auth'] = true;
+					$_SESSION['user'] = $user;
+					$result = $mysqli->query("
+					SELECT DISTINCT script FROM utente LEFT JOIN (utente_has_gruppi,gruppi,gruppi_has_servizi,servizi)
+					ON(utente.username=utente_has_gruppi.Utente_username 
+					AND utente_has_gruppi.Gruppi_id_gruppi=gruppi.idgruppi 
+					AND gruppi_has_servizi.servizi_idservizi=servizi.idservizi) 
+					WHERE utente.username='".$_POST['username']."'");
+					
+					if (!$result) {
+						trigger_error("Generic error, level 40", E_USER_ERROR);
+					}
+					
+					if(mysqli_num_rows($result) == 1){
+					  //header("Location:login.php?error");
+						exit;
+					}
+					$scripts=array();
+					while($data=$result->fetch_assoc()){
+						$scripts[$data['script']]=true;
+					}
+					
+					$_SESSION['user']['script'] = $scripts;
+
+					header("Location:update-profilo.php");
 				}else{
 					echo $mysqli->error;
 				}

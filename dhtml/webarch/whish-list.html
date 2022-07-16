@@ -1,0 +1,20 @@
+<table>
+    <tr>
+        <th width="45%">Prodotto</th>
+        <th width="20%">Data aggiunta</th>
+        <th width="20%">Prezzo</th>
+        <th width="5%">Aggiungi</th>
+        <th width="5%">Rimuovi</th>
+    </tr>
+
+<[foreach]>
+    <tr>
+        <td  class="product-name"><[product]></td>
+        <td> <[data]></td>
+        <td><[prezzo]></td>
+        <td ><button type="submit" class="btn btn-primary" >Aggiungi</button></td>
+        <td ><button type="submit" class="btn btn-primary" >Rimuovi</button></td>
+    </tr>
+<[/foreach]>
+
+</table>

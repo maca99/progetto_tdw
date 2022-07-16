@@ -1,13 +1,27 @@
-<h1>Il mio Profilo</h1>
-
-<p>Nome</p>
-<p>Cognome</p>
-<p>email</p>
-
-<h2>Informazioni Aggiuntive</h2>
-<p>I miei ordini</p>
-<p>Indirizzo</p>
-<p>Città</p>
-<p>CAP</p>
-<p>Su di me</p>
-<p>Social</p>
+<div class="col-md-7">
+    <!-- Billing Details -->
+    <form action="update-profilo.php" method="post">
+    <div class="billing-details">
+        <div class="section-title">
+            <h3 class="title">Dati di spedizione</h3>
+        </div>
+        <div class="form-group">
+            <input class="input" type="text" name="indirizzo" placeholder="Indirizzo">
+        </div>
+        <div class="form-group">
+            <input class="input" type="text" name="città" placeholder="Città">
+        </div>
+        <div class="form-group">
+            <input class="input" type="text" name="paese" placeholder="Paese">
+        </div>
+        <div class="form-group">
+            <input class="input" type="text" name="cap" placeholder="CAP">
+        </div>
+        <div class="form-group">
+            <input class="input" type="tel" name="tel" placeholder="Telefono">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Continua</button>
+        </div>
+    </form>
+    </div>

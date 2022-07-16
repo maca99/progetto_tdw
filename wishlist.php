@@ -7,7 +7,8 @@ session_start();
 
 	$body= new Template("dhtml/wishlist.html");
     $main= new Template("dhtml/blank-min.html");
-
+    
+    
 
     
 
