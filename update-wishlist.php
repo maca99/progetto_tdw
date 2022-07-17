@@ -15,7 +15,7 @@
     switch($action){
         case "add":
 
-            $wid=$mysqli->query("SELECT id_wishlist FROM wishlist WHERE wishlist.username='".$_SESSION['auth']['username']."'");
+            $wid=$mysqli->query("SELECT id_wishlist FROM wishlist WHERE wishlist.username='".$_SESSION['user']['username']."'");
             while($row=mysqli_fetch_array($wid)){
                 $new_wish=$row['id_wishlist'];
             }
