@@ -6,7 +6,7 @@
     require "include/dbms.inc.php";
     require "include/auth.inc.php";
 
-    $main = new Template("dhtml/blank-min.html");
+    $main = new Template("dhtml/admin-panel.html");
     $body = new Template("dhtml/product-add.html");
 
    
