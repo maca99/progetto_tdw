@@ -33,4 +33,5 @@
     }
 }
     header("Location: product.php?product_code=$product");
+
 ?>
