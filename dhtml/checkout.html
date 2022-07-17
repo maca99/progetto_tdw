@@ -12,10 +12,10 @@
 								<h3 class="title">Dati Spedizione</h3>
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="nome" disabled value="<[nome]>">
+								<input class="input" type="text" name="nome" disabled value="<[name]>">
 							</div>
 							<div class="form-group">
-								<input class="input" type="text" name="cognome"disabled  value="<[cognome]>">
+								<input class="input" type="text" name="cognome"disabled  value="<[surname]>">
 							</div>
 							<div class="form-group">
 								<input class="input" type="email" name="email" disabled value="<[email]>">
@@ -40,12 +40,13 @@
 						<!-- /Billing Details -->
 
 						<!-- Shiping Details -->
+						<form action="checkout.php" method="post">
 						<div class="shiping-details">
 							<div class="section-title">
 								<h3 class="title">Indirizzo di spedizione</h3>
 							</div>
 							<div class="input-checkbox">
-								<input type="checkbox" id="shiping-address">
+								<input type="checkbox" id="shiping-address" name="shiping-address">
 								<label for="shiping-address">
 									<span></span>
 									Spedire ad un altro indirizzo?
@@ -64,7 +65,7 @@
 										<input class="input" type="text" name="indirizzo" placeholder="Indirizzo">
 									</div>
 									<div class="form-group">
-										<input class="input" type="text" name="città" placeholder="Città">
+										<input class="input" type="text" name="citta" placeholder="Città">
 									</div>
 									<div class="form-group">
 										<input class="input" type="text" name="paese" placeholder="Paese">
@@ -82,11 +83,11 @@
 
 						<!-- Order notes -->
 						<div class="order-notes">
-							<textarea class="input" placeholder="Note per l'ordine"></textarea>
+							<textarea class="input" name="note" placeholder="Note per l'ordine"></textarea>
 						</div>
 						<!-- /Order notes -->
 					</div>
-
+					
 					<!-- Order Details -->
 					<div class="col-md-5 order-details">
 						<div class="section-title text-center">
@@ -113,20 +114,20 @@
 								<input type="radio" name="payment" id="payment-1">
 								<label for="payment-1">
 									<span></span>
-									Direct Bank Transfer
+									Bonifico Bancario
 								</label>
 								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									<p>Il pacco verrà spedito una volta che il bonifico verrà ricevuto.</p>
 								</div>
 							</div>
 							<div class="input-radio">
 								<input type="radio" name="payment" id="payment-2">
 								<label for="payment-2">
 									<span></span>
-									Cheque Payment
+									Contrassegno
 								</label>
 								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									<p>Il pagamento verra effettuato al corriere una volta ricevuto il pacco.</p>
 								</div>
 							</div>
 							<div class="input-radio">
@@ -136,7 +137,7 @@
 									Paypal System
 								</label>
 								<div class="caption">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+									<p>Possono essere applicate percentuali a seconda del tuo acount Paypal.</p>
 								</div>
 							</div>
 						</div>
@@ -147,10 +148,11 @@
 								Ho letto e accettato i <a href="#">termini & condizioni</a>
 							</label>
 						</div>
-						<a href="#" class="primary-btn order-submit">Conferma ordine</a>
+						<button class="primary-btn order-submit" type="submit" name="conferma">Conferma ordine</button>
 					</div>
 					<!-- /Order Details -->
 				</div>
+			</form>
 				<!-- /row -->
 			</div>
 			<!-- /container -->
