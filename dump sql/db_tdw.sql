@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Creato il: Lug 16, 2022 alle 16:39
+-- Creato il: Lug 18, 2022 alle 16:35
 -- Versione del server: 8.0.27
 -- Versione PHP: 7.4.26
 
@@ -69,8 +69,13 @@ CREATE TABLE IF NOT EXISTS `cliente` (
 INSERT INTO `cliente` (`username`, `indirizzo`, `citta`, `paese`, `cap`, `telefono`) VALUES
 ('1', NULL, NULL, NULL, NULL, NULL),
 ('cavasinni99', NULL, NULL, NULL, NULL, NULL),
-('gr', NULL, NULL, NULL, NULL, NULL),
-('matteo', NULL, NULL, NULL, NULL, NULL);
+('dadd', 'sdfv', 'gsde', 'gdasf', '67043', '1234567890'),
+('eren', 'few', 'fwEFEW', 'fWEFEW', '12345', '1234567890'),
+('gr', 'ciao', 'boh', 'htsthth', 'thsth', '1234567890'),
+('maca0009', 'via dei pazzi', 'cerchio', 'italia', '67043', '3329090878'),
+('matteo', NULL, NULL, NULL, NULL, NULL),
+('qwerty', 'shgf', 'shsh', 'hsg', 'hshsg', '1234567890'),
+('user998', 'efagf', 'fgerreg', 'grrg', '12345', '1234567890');
 
 -- --------------------------------------------------------
 
@@ -138,7 +143,8 @@ INSERT INTO `gruppi_has_servizi` (`gruppi_idgruppi`, `servizi_idservizi`) VALUES
 (1, 5),
 (1, 6),
 (1, 7),
-(1, 8);
+(1, 8),
+(1, 9);
 
 -- --------------------------------------------------------
 
@@ -225,12 +231,29 @@ INSERT INTO `immagine` (`idimmagine`, `prodotto_idprodotto`, `immagine`, `type`)
 DROP TABLE IF EXISTS `ordine`;
 CREATE TABLE IF NOT EXISTS `ordine` (
   `id_ordine` int NOT NULL AUTO_INCREMENT,
-  `utente_idCliente` int NOT NULL,
+  `id_cliente` int NOT NULL,
   `importo` decimal(10,0) UNSIGNED NOT NULL DEFAULT '0',
-  `stato` tinyint DEFAULT NULL,
+  `pagamento` varchar(25) NOT NULL,
+  `stato` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id_ordine`),
-  KEY `fk_ordine_utente1_idx` (`utente_idCliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  KEY `fk_ordine_utente1_idx` (`id_cliente`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dump dei dati per la tabella `ordine`
+--
+
+INSERT INTO `ordine` (`id_ordine`, `id_cliente`, `importo`, `pagamento`, `stato`) VALUES
+(1, 22, '430', 'on', 'Da spedire'),
+(2, 22, '430', 'on', 'Da spedire'),
+(3, 22, '430', 'on', 'Da spedire'),
+(4, 22, '430', 'on', 'Da spedire'),
+(5, 22, '430', 'on', 'Da spedire'),
+(6, 22, '430', 'on', 'Da spedire'),
+(7, 22, '430', 'on', 'Da spedire'),
+(8, 23, '3000', 'on', 'Da spedire'),
+(9, 23, '3000', 'on', 'Da spedire'),
+(10, 23, '3000', 'on', 'Da spedire');
 
 -- --------------------------------------------------------
 
@@ -240,16 +263,23 @@ CREATE TABLE IF NOT EXISTS `ordine` (
 
 DROP TABLE IF EXISTS `ordine_has_prodotto`;
 CREATE TABLE IF NOT EXISTS `ordine_has_prodotto` (
-  `ordine_id_ordine` int NOT NULL,
-  `id_variante_prodotto` int NOT NULL,
+  `id_ordine` int NOT NULL,
   `id_prodotto` int NOT NULL,
-  `pezzi` int UNSIGNED NOT NULL,
-  `totale` int UNSIGNED NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ordine_id_ordine`),
-  KEY `fk_carrello_has_prodotto_ordine1_idx` (`ordine_id_ordine`),
-  KEY `id_variante_prodotto` (`id_variante_prodotto`),
-  KEY `id_prodotto` (`id_prodotto`)
+  `pezzi` int UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dump dei dati per la tabella `ordine_has_prodotto`
+--
+
+INSERT INTO `ordine_has_prodotto` (`id_ordine`, `id_prodotto`, `pezzi`) VALUES
+(7, 1, 1),
+(8, 13, 1),
+(8, 2, 2),
+(9, 13, 1),
+(9, 2, 2),
+(10, 13, 1),
+(10, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -377,7 +407,7 @@ CREATE TABLE IF NOT EXISTS `servizi` (
   `idservizi` int NOT NULL AUTO_INCREMENT,
   `script` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`idservizi`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dump dei dati per la tabella `servizi`
@@ -391,7 +421,8 @@ INSERT INTO `servizi` (`idservizi`, `script`) VALUES
 (5, 'wishlist.php'),
 (6, 'checkout.php'),
 (7, 'welcome.php'),
-(8, 'update-profilo.php');
+(8, 'update-profilo.php'),
+(9, 'update-wishlist.php');
 
 -- --------------------------------------------------------
 
@@ -417,6 +448,44 @@ INSERT INTO `size` (`id_size`, `misure`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `spedizione`
+--
+
+DROP TABLE IF EXISTS `spedizione`;
+CREATE TABLE IF NOT EXISTS `spedizione` (
+  `id_spedizione` int NOT NULL AUTO_INCREMENT,
+  `id_ordine` int NOT NULL,
+  `nome` varchar(50) NOT NULL,
+  `cognome` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `indirizzo` varchar(50) NOT NULL,
+  `citta` varchar(50) NOT NULL,
+  `paese` varchar(50) NOT NULL,
+  `cap` varchar(5) NOT NULL,
+  `telefono` varchar(10) NOT NULL,
+  `note` text NOT NULL,
+  PRIMARY KEY (`id_spedizione`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dump dei dati per la tabella `spedizione`
+--
+
+INSERT INTO `spedizione` (`id_spedizione`, `id_ordine`, `nome`, `cognome`, `email`, `indirizzo`, `citta`, `paese`, `cap`, `telefono`, `note`) VALUES
+(1, 1, 'fdhh', 'hfsdhsfd', 'hsd@dfh', 'shgf', 'shsh', 'hsg', 'hshsg', '1234567890', ''),
+(2, 2, 'erttre', 'etrtre', 'erttr@ertter', 'ertret', 'wertwrt', 'twrert', '12345', '1234567890', 'gfdhjyj'),
+(3, 3, 'erttre', 'etrtre', 'erttr@ertter', 'ertret', 'wertwrt', 'twrert', '12345', '1234567890', 'gfdhjyj'),
+(4, 4, 'erttre', 'etrtre', 'erttr@ertter', 'ertret', 'wertwrt', 'twrert', '12345', '1234567890', 'gfdhjyj'),
+(5, 5, 'erttre', 'etrtre', 'erttr@ertter', 'ertret', 'wertwrt', 'twrert', '12345', '1234567890', 'gfdhjyj'),
+(6, 6, 'erttre', 'etrtre', 'erttr@ertter', 'ertret', 'wertwrt', 'twrert', '12345', '1234567890', 'gfdhjyj'),
+(7, 7, 'fdhh', 'hfsdhsfd', 'hsd@dfh', 'shgf', 'shsh', 'hsg', 'hshsg', '1234567890', ''),
+(8, 8, 'fes', 'fegw', 'hgef@feren', 'efagf', 'fgerreg', 'grrg', '12345', '1234567890', ''),
+(9, 9, 'fes', 'fegw', 'hgef@feren', 'efagf', 'fgerreg', 'grrg', '12345', '1234567890', ''),
+(10, 10, 'fes', 'fegw', 'hgef@feren', 'efagf', 'fgerreg', 'grrg', '12345', '1234567890', '');
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `utente`
 --
 
@@ -430,7 +499,7 @@ CREATE TABLE IF NOT EXISTS `utente` (
   `surname` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id_utente`),
   UNIQUE KEY `email` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dump dei dati per la tabella `utente`
@@ -445,7 +514,12 @@ INSERT INTO `utente` (`id_utente`, `username`, `email`, `password`, `name`, `sur
 (15, 'matt99', 'saacs@CASc', 'f4f4b40ca5654ae0d505225ed6d2dac8', 'ca', 'CAsd'),
 (16, 'matteo', 'aadf@efafe.it', 'a4a95ec09875170b06622c1c79e82d1a', 'matteo', 'cavasinni'),
 (17, 'cavasinni99', 'afefe@effea.it', 'a4a95ec09875170b06622c1c79e82d1a', 'matteo', 'fasas'),
-(18, 'gr', 'rgae@rage', '9880edafde49397a55008d571ac1906e', 'efg', 'rahe');
+(18, 'gr', 'rgae@rage', '9880edafde49397a55008d571ac1906e', 'efg', 'rahe'),
+(19, 'dadd', 'wq@qs', '696d29e0940a4957748fe3fc9efd22a3', 'q', 'qdsd'),
+(20, 'maca0009', 'fsad@fsdfd', '696d29e0940a4957748fe3fc9efd22a3', '23r32r', 'r32waasf'),
+(21, 'eren', 'ereb@99.it', '31a1ec8df5f815d38c4bcc34aacfbbe7', 'eren', 'yegher'),
+(22, 'qwerty', 'hsd@dfh', '696d29e0940a4957748fe3fc9efd22a3', 'fdhh', 'hfsdhsfd'),
+(23, 'user998', 'hgef@feren', '5d0824074e46ea0092599571a4899a46', 'fes', 'fegw');
 
 -- --------------------------------------------------------
 
@@ -468,11 +542,16 @@ CREATE TABLE IF NOT EXISTS `utente_has_gruppi` (
 
 INSERT INTO `utente_has_gruppi` (`Utente_username`, `Gruppi_id_gruppi`) VALUES
 ('cavasinni99', 1),
+('dadd', 1),
+('eren', 1),
 ('gr', 1),
 ('maca', 1),
-('matt99', 1),
+('maca0009', 1),
 ('matteo', 1),
-('maca99', 2);
+('qwerty', 1),
+('user998', 1),
+('maca99', 2),
+('matt99', 2);
 
 -- --------------------------------------------------------
 
@@ -483,17 +562,22 @@ INSERT INTO `utente_has_gruppi` (`Utente_username`, `Gruppi_id_gruppi`) VALUES
 DROP TABLE IF EXISTS `wishlist`;
 CREATE TABLE IF NOT EXISTS `wishlist` (
   `id_wishlist` int NOT NULL AUTO_INCREMENT,
-  `username` int NOT NULL,
+  `username` varchar(25) NOT NULL,
   PRIMARY KEY (`id_wishlist`),
   KEY `fk_cliente` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dump dei dati per la tabella `wishlist`
 --
 
 INSERT INTO `wishlist` (`id_wishlist`, `username`) VALUES
-(1, 0);
+(1, '0'),
+(2, '0'),
+(4, 'eren'),
+(3, 'maca0009'),
+(5, 'qwerty'),
+(6, 'user998');
 
 -- --------------------------------------------------------
 
@@ -503,12 +587,28 @@ INSERT INTO `wishlist` (`id_wishlist`, `username`) VALUES
 
 DROP TABLE IF EXISTS `wishlist_has_prodotto`;
 CREATE TABLE IF NOT EXISTS `wishlist_has_prodotto` (
+  `id_prodotto-whishlist` int NOT NULL AUTO_INCREMENT,
   `id_wishlist` int NOT NULL,
   `id_prodotto` int NOT NULL,
   `data` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  KEY `fk_carrello_has_prodotto_prodotto2_idx` (`id_prodotto`),
-  KEY `fk_whishlist` (`id_wishlist`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+  PRIMARY KEY (`id_prodotto-whishlist`),
+  UNIQUE KEY `id_wishlist` (`id_wishlist`,`id_prodotto`),
+  KEY `fk_carrello_has_prodotto_prodotto2_idx` (`id_prodotto`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dump dei dati per la tabella `wishlist_has_prodotto`
+--
+
+INSERT INTO `wishlist_has_prodotto` (`id_prodotto-whishlist`, `id_wishlist`, `id_prodotto`, `data`) VALUES
+(1, 4, 2, '2022-07-17 14:59:46'),
+(6, 4, 1, '2022-07-17 15:17:38'),
+(7, 5, 2, '2022-07-17 15:27:03'),
+(10, 5, 13, '2022-07-17 15:42:03'),
+(11, 5, 1, '2022-07-17 15:42:14'),
+(12, 6, 2, '2022-07-18 14:09:19'),
+(14, 6, 13, '2022-07-18 14:10:19'),
+(19, 6, 16, '2022-07-18 14:15:29');
 
 --
 -- Limiti per le tabelle scaricate
