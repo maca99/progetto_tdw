@@ -5,20 +5,26 @@
     require "include/dbms.inc.php";
     require "include/auth.inc.php";
 
-    $main = new Template("dhtml/blank-min.html");
-    $body = new Template("dhtml/welcome.html");
-    
-    $result = $mysqli->query("
-    SELECT DISTINCT script FROM utente LEFT JOIN (utente_has_gruppi,gruppi,gruppi_has_servizi,servizi) 
-    ON(utente.username=utente_has_gruppi.Utente_username 
-    AND utente_has_gruppi.Gruppi_id_gruppi=gruppi_has_servizi.gruppi_idgruppi 
-    AND gruppi_has_servizi.servizi_idservizi=servizi.idservizi) WHERE utente.username='".$_SESSION['user']['username']."'");
-    $result->fetch_assoc();
 
-    foreach($result as $script){
-        echo  $script['script'];
-        echo "<br>";
+    
+    $result = $mysqli->query("SELECT gruppi.idgruppi FROM utente LEFT JOIN (utente_has_gruppi,gruppi) 
+    ON(utente.username=utente_has_gruppi.Utente_username AND utente_has_gruppi.Gruppi_id_gruppi=gruppi.idgruppi)
+    WHERE utente.username='".$_SESSION['user']['username']."'");
+    if(!$result){
+        $mysqli->error;
+        exit;
     }
+    while($data=$result->fetch_assoc()){
+        $type=$data['idgruppi'];
+    }
+
+   if(!$type == '1'){
+        $main = new Template("dhtml/blank-min.html");
+        $body = new Template("dhtml/welcome.html");
+   }else{
+        $main = new Template("dhtml/admin-panel.html");
+        $body = new Template("dhtml/welcome.html");
+   }
 
     $body->setContent("email",$_SESSION['user']['email']);
 
