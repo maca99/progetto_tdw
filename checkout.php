@@ -61,6 +61,8 @@
                     exit;
                 }
             }
+            header("location: confirmed-order.php?id_ordine='".$id."'");
+
 
         }else{
             header("location: checkout.php");
