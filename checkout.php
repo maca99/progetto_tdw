@@ -72,15 +72,12 @@
     $total=0;
 
     if(isset($_SESSION['cart'])){
+        //carrello
         foreach($_SESSION['cart'] as $item){
             $id=$item['id'];
             $oid=$mysqli->query("SELECT * FROM prodotto WHERE prodotto.id_prodotto=$id ");
             $data = $oid->fetch_assoc();
             $total= $data['prezzo'] * $item['quantity'];
-
-            //dati
-            
-
         }
     }
     $body->setContent("totale",$total);
