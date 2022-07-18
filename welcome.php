@@ -14,18 +14,17 @@
         $mysqli->error;
         exit;
     }
-    while($data=$result->fetch_assoc()){
-        $type=$data['idgruppi'];
-    }
-
-   if(!$type == '1'){
-        $main = new Template("dhtml/blank-min.html");
-        $body = new Template("dhtml/welcome.html");
-   }else{
+    if(mysqli_num_rows($result) == 1){
+        $data=$resul->fetch_assoc();
+        if($data['idgruppi'] == '1'){
+           $main = new Template("dhtml/blank-min.html");
+        } 
+    }else{
         $main = new Template("dhtml/admin-panel.html");
-        $body = new Template("dhtml/welcome.html");
-   }
+    }
+        
 
+    $body = new Template("dhtml/welcome.html");
     $body->setContent("email",$_SESSION['user']['email']);
 
 
