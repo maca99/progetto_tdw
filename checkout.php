@@ -61,7 +61,7 @@
                     exit;
                 }
             }
-            header("location: confirmed-order.php?id_ordine='".$id."'");
+            header("location:confirmed-order.php?id_ordine='".$id_ordine."'");
 
 
         }else{
