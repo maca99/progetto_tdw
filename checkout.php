@@ -61,15 +61,11 @@
                     exit;
                 }
             }
-            
+
         }else{
             header("location: checkout.php");
         }
     }
-
-
-
-
 
     $main= new Template("dhtml/blank-min.html");
     $body = new Template("dhtml/checkout.html");
@@ -94,7 +90,6 @@
             $body->setContent($key,$value);
         }
     }
-
 
     
 

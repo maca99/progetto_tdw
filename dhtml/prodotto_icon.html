@@ -18,14 +18,15 @@
 			<[/foreach]>
 		</div>
 		
-		<div class="product-btns">
-		<form method="post" action="update-wishlist.php">
-				<input type="hidden" name="product" value="<[id_prodotto]>">
+		<form method="post" action="wishlist-add.php">
+			<div class="product-btns">
+			<input type="hidden" name="product" value="<[id_prodotto]>">
 			<button  class="add-to-wishlist" value="add" name="action"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-		</form>
 			<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
 			<a href="./product.php?product_code=<[id_prodotto]>"><button class="quick-view"><i class="fa fa-eye"></i></a><span class="tooltipp">quick view</span></button>
 		</div>
+		</form>
+
 		
 	</div>
 	

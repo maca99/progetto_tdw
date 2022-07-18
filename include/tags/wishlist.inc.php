@@ -40,6 +40,8 @@
                         if($oid){
                             //dati
                             while($data = $oid->fetch_assoc()){
+
+                                $main->setContent("id_prodotto", $data['id_prodotto']);
                                 $main->setContent("nome", $data['nome']);
                                 $main->setContent("data", $data['data']);
                                 $main->setContent("prezzo", $data['prezzo']);
