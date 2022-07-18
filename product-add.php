@@ -2,9 +2,11 @@
 
     session_start();
     
-    require "include/template2.inc.php";
     require "include/dbms.inc.php";
     require "include/auth.inc.php";
+    require "include/template2.inc.php";
+    
+    
 
     $main = new Template("dhtml/admin-panel.html");
     $body = new Template("dhtml/product-add.html");
