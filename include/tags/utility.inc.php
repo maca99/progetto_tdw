@@ -71,13 +71,13 @@
 
 			$result=$mysqli->query("SELECT idimmagine FROM `immagine` WHERE  prodotto_idprodotto = $id LIMIT 1");
 			if(mysqli_num_rows($result)!=1){
-				$img="<img src='dhtml/img/not_found.png'>";
+				$img="<img  src='dhtml/img/not_found.png'>";
                 $main->setContent("immagine",$img);
 				//prodotto senza immagine
 			}else{
 				while($row = mysqli_fetch_array($result)){
 					$tag=$row['idimmagine'];
-					$img="<img src=show.php?id=$tag>";
+					$img="<img height='225.5' width='225.5' src=show.php?id=$tag>";
 					$main->setContent("immagine",$img);
 				}
 			}

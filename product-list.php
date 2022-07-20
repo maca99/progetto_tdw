@@ -1,7 +1,7 @@
 <?php
     session_start();
     require "include/dbms.inc.php";
-    require "include/auth.inc.php";
+    //require "include/auth.inc.php";
 	require "include/template2.inc.php";
 
 	$body= new Template("dhtml/product-list.html");

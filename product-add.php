@@ -3,7 +3,7 @@
     session_start();
     
     require "include/dbms.inc.php";
-    require "include/auth.inc.php";
+    //require "include/auth.inc.php";
     require "include/template2.inc.php";
     
     
@@ -42,7 +42,7 @@
                 //Get the contents of the image
 
                     $size = $_FILES['userImage']['size'];
-                    if($size > 16000){
+                    if($size > 100000){
                         echo"il file è troppo grande!";
                         exit();
                     }
@@ -56,11 +56,12 @@
             if($query){
                 header("Location: product-list.php");
             }else{
-                header("Location: product-add.php?error=$error");
+                echo $error=$mysqli->error;
+                exit;
             }
         }else{
-            $error=$mysqli->error;
-            header("Location: product-add.php?error=$error");
+            echo $mysqli->error;
+            exit;
         }
     }
     if(isset($_GET['error'])){
