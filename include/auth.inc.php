@@ -97,8 +97,6 @@
         if (!isset($_SESSION['auth'])) {
             $_SESSION['referrer'] = basename($_SERVER['SCRIPT_NAME']);
             Header("Location: login.php?not_auth");
-            
-            exit;
         } else {
 
         }
