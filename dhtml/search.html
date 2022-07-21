@@ -1,0 +1,16 @@
+<table border=1 frame=void rules=rows>
+    <tr>
+        <th width="5%">N°</th>
+        <th width="10%">Immagine</th>
+        <th width="70%">Prodotto</th>
+        <th width="80%">Categoria</th>
+    </tr>
+    <[foreach]>
+    <tr>
+        <td><[id_prodotto]></td>
+        <td><div class="product-img"><[immagine]></div></td>
+        <td class="product-name"><a href="./product.php?product_code=<[id_prodotto]>"><[nome]></a></td>
+        <td class="product-name"><[categoria]></td>
+    </tr>
+    <[/foreach]>
+</table>

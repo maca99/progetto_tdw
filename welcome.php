@@ -15,12 +15,12 @@
         exit;
     }
     if(mysqli_num_rows($result) == 1){
-        $data=$resul->fetch_assoc();
-        if($data['idgruppi'] == '1'){
-           $main = new Template("dhtml/blank-min.html");
+        $data=$result->fetch_assoc();
+        if($data['idgruppi'] != '1'){
+            $main = new Template("dhtml/admin-panel.html");
         } 
     }else{
-        $main = new Template("dhtml/admin-panel.html");
+        $main = new Template("dhtml/blank-min.html");
     }
         
 
