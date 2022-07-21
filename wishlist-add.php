@@ -1,6 +1,7 @@
 <?php
 session_start();
     require "include/dbms.inc.php";
+    require "include/auth.inc.php";
     
     $product=isset($_REQUEST['product'])? $_REQUEST['product']:"";
     $action=$_REQUEST['action'];

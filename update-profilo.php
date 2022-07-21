@@ -20,7 +20,7 @@
                             SET indirizzo='$indirizzo',citta='$citta',paese='$paese',cap='$cap',telefono='$telefono'
                              WHERE username='".$_SESSION['user']['username']."'");
         if($oid){
-            header("Location: index.php");
+            header("Location: welcome.php");
         }else{
             echo $mysqli->error;
             exit;

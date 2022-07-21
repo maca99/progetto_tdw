@@ -36,10 +36,10 @@
 
     //top selling
 
-    $result1=$mysqli->query("SELECT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria ) left JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE nome_categoria='Laptops' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ALL ordine_has_prodotto.pezzi) LIMIT 10");
-    $result2=$mysqli->query("SELECT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria ) left JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE nome_categoria='Smartphone' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ALL ordine_has_prodotto.pezzi) LIMIT 10");
-    $result3=$mysqli->query("SELECT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria )LEFT JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE nome_categoria='Fotocamere' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ALL ordine_has_prodotto.pezzi) LIMIT 10");
-    $result4=$mysqli->query("SELECT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria ) LEFT JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE nome_categoria='Accessori' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ALL ordine_has_prodotto.pezzi) LIMIT 10");
+    $result1=$mysqli->query("SELECT DISTINCT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria ) left JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE nome_categoria='Laptops' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ALL ordine_has_prodotto.pezzi) LIMIT 10");
+    $result2=$mysqli->query("SELECT DISTINCT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria ) left JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE nome_categoria='Smartphone' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ALL ordine_has_prodotto.pezzi) LIMIT 10");
+    $result3=$mysqli->query("SELECT DISTINCT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria )LEFT JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE nome_categoria='Fotocamere' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ALL ordine_has_prodotto.pezzi) LIMIT 10");
+    $result4=$mysqli->query("SELECT DISTINCT prodotto.id_prodotto FROM categoria LEFT JOIN prodotto ON( categoria.id_categoria = prodotto.id_categoria ) LEFT JOIN ordine_has_prodotto ON( prodotto.id_prodotto = ordine_has_prodotto.id_prodotto ) WHERE nome_categoria='Accessori' GROUP BY prodotto.id_prodotto ORDER BY COUNT(ALL ordine_has_prodotto.pezzi) LIMIT 10");
     
     while($row=$result1->fetch_array()){
         $body->setContent("product5",$utility->product_icon($row['id_prodotto']));
@@ -56,9 +56,9 @@
 
 
     
-    $result9=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Laptops' order by prodotto.data ASC LIMIT 10");
-    $result10=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Smartphone' order by prodotto.data ASC LIMIT 10");
-    $result11=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Fotocamere' order by prodotto.data ASC LIMIT 10");
+    $result9=$mysqli->query("SELECT DISTINCT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Laptops' order by prodotto.data ASC LIMIT 10");
+    $result10=$mysqli->query("SELECT DISTINCT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Smartphone' order by prodotto.data ASC LIMIT 10");
+    $result11=$mysqli->query("SELECT DISTINCT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Fotocamere' order by prodotto.data ASC LIMIT 10");
 
     while($row = mysqli_fetch_array($result9)){
         $body->setContent("product9",$utility->product_widget($row['id_prodotto']));

@@ -1,12 +1,11 @@
 <?php
     session_start();
     require "include/dbms.inc.php";
+    //require "include/auth.inc.php";
 	require "include/template2.inc.php";
-    include "include/tags/utility.inc.php";
 
 	$body= new Template("dhtml/product-list.html");
     $main= new Template("dhtml/admin-panel.html");
-    $utility=new utility();
 
     $result=$mysqli->query("SELECT * FROM prodotto LEFT JOIN (categoria) ON( prodotto.id_categoria=categoria.id_categoria)");
     while($row=mysqli_fetch_array($result)){

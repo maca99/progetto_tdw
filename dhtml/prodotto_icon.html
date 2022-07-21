@@ -11,21 +11,22 @@
 	<div class="product-body">
 		<p class="product-category"><[nome_categoria]></p>
 		<h3 class="product-name"><a href="#"><[nome]></a></h3>
-		<h4 class="product-price"><[prezzo]><del class="product-old-price"><[prezzo_vecchio]></del></h4>
+		<h4 class="product-price"><[prezzo]> $<del class="product-old-price"><[prezzo_vecchio]></del></h4>
 		<div class="product-rating">
 			<[foreach]>
 			<[recensione]>
 			<[/foreach]>
 		</div>
 		
-		<form method="post" action="wishlist-add.php">
+		
 			<div class="product-btns">
-			<input type="hidden" name="product" value="<[id_prodotto]>">
+				<form method="post" action="wishlist-add.php">
+				<input type="hidden" name="product" value="<[id_prodotto]>">
 			<button  class="add-to-wishlist" value="add" name="action"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-			<button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-			<a href="./product.php?product_code=<[id_prodotto]>"><button class="quick-view"><i class="fa fa-eye"></i></a><span class="tooltipp">quick view</span></button>
+				</form>
+			<a href="product.php?product_code=<[id_prodotto]>"><button class="quick-view"><i class="fa fa-eye"></i></a><span class="tooltipp">quick view</span></button>
 		</div>
-		</form>
+		
 
 		
 	</div>
