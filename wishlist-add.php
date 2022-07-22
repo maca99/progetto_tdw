@@ -1,7 +1,6 @@
 <?php
 session_start();
     require "include/dbms.inc.php";
-    require "include/auth.inc.php";
     
     $product=isset($_REQUEST['product'])? $_REQUEST['product']:"";
     $action=$_REQUEST['action'];
@@ -16,7 +15,9 @@ session_start();
         }
 
         $result= $mysqli->query("INSERT INTO wishlist_has_prodotto (id_wishlist,id_prodotto) VALUES ($new_wish,$product) ");
+
     }
-    
-    header("Location: wishlist.php");
+
+    $referer = $_SERVER['HTTP_REFERER'];
+    header("Location: $referer");
 ?>

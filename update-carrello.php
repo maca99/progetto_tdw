@@ -37,8 +37,9 @@ require "include/dbms.inc.php";
                     unset($_SESSION['cart'][$product]);
                     break;
         }
-
-        header("Location: product.php?product_code=$product");
+        
+        $referer = $_SERVER['HTTP_REFERER'];
+        header("Location: $referer");
        
 
     }

@@ -18,9 +18,9 @@
         $data=$result->fetch_assoc();
         if($data['idgruppi'] != '1'){
             $main = new Template("dhtml/admin-panel.html");
-        } 
-    }else{
+        }else{
         $main = new Template("dhtml/blank-min.html");
+        }
     }
         
 

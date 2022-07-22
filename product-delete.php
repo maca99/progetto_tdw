@@ -9,10 +9,10 @@
     $del = $mysqli -> query("DELETE FROM prodotto WHERE id_prodotto = '".$id."'") or die(mysqli_error($mysqli));
 
     if($del){
-        echo "<script>alert('Delete Successful.'); window.location='product-list.php'</script>";
+        echo "<script>alert('Prodotto eliminato con successo.'); window.location='product-list.php'</script>";
         
     } else{
-        echo "<script>alert('Delete Failed.');</script>";
+        echo "<script>alert('Si è verificato un errore durante l'eliminazione.');</script>";
     }
     
     

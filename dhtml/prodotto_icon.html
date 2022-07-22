@@ -18,11 +18,11 @@
 			<[/foreach]>
 		</div>
 		
-		<form method="post" action="wishlist-add.php">
+		<form method="get" action="wishlist-add.php">
 			<div class="product-btns">
 			<input type="hidden" name="product" value="<[id_prodotto]>">
-			<button  class="add-to-wishlist" value="add" name="action"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-			<a href="./product.php?product_code=<[id_prodotto]>"><button class="quick-view"><i class="fa fa-eye"></i></a><span class="tooltipp">quick view</span></button>
+			<button  class="add-to-wishlist" value="add" name="action"><i class="fa fa-heart-o"></i><span class="tooltipp">Aggiungi alla wishlist</span></button>
+			<a href="./product.php?product_code=<[id_prodotto]>"><button class="quick-view"><i class="fa fa-eye"></i></a><span class="tooltipp">Visualizza</span></button>
 		</div>
 		</form>
 
@@ -32,7 +32,7 @@
 	<div class="add-to-cart">
 		<form action="update-carrello.php" method="get">
 			<input type="hidden" name="product" value="<[id_prodotto]>">
-		<button class="add-to-cart-btn" name="action" value="add"><i class="fa fa-shopping-cart"></i> add to cart</button></form>
+		<button class="add-to-cart-btn" name="action" value="add"><i class="fa fa-shopping-cart"></i> Aggiungi al carrello</button></form>
 	</div>
 </div>
 
