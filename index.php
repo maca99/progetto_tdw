@@ -56,9 +56,9 @@
 
 
     
-    $result9=$mysqli->query("SELECT DISTINCT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Laptops' order by prodotto.data ASC LIMIT 10");
-    $result10=$mysqli->query("SELECT DISTINCT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Smartphone' order by prodotto.data ASC LIMIT 10");
-    $result11=$mysqli->query("SELECT DISTINCT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Fotocamere' order by prodotto.data ASC LIMIT 10");
+    $result9=$mysqli->query("SELECT DISTINCT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Laptops' order by prodotto.data ASC LIMIT 4");
+    $result10=$mysqli->query("SELECT DISTINCT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Smartphone' order by prodotto.data ASC LIMIT 4");
+    $result11=$mysqli->query("SELECT DISTINCT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.nome_categoria='Fotocamere' order by prodotto.data ASC LIMIT 4");
 
     while($row = mysqli_fetch_array($result9)){
         $body->setContent("product9",$utility->product_widget($row['id_prodotto']));
