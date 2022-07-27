@@ -1,11 +1,12 @@
-<form  method="post" action="product-delete.php">
+
     <table border=1 frame=void rules=rows>
         <tr>
             <th width="5%">N°</th>
-            <th width="10%">Immagine</th>
-            <th width="70%">Prodotto</th>
-            <th width="80%">Categoria</th>
-            <th width="5%">Azione</th>
+            <th width="20%">Immagine</th>
+            <th width="35%">Prodotto</th>
+            <th width="30%">Categoria</th>
+            <th width="15%">Modifica</th>
+            <th width="15%">Cancella</th>
         </tr>
         <[foreach]>
         <tr>
@@ -13,10 +14,11 @@
             <td><div class="product-img"><[immagine]></div></td>
             <td class="product-name"><[nome]></td>
             <td class="product-name"><[categoria]></td>
-            <td><a href="product-update.php?product_code=<[id_prodotto]>"><button type="submit" name="delete" class="btn btn-primary" >Modifica</button></a>
+            <td><a href="product-update.php?product_code=<[id_prodotto]>"><button  class="btn btn-primary" >Modifica</button></a></td>
+            <form  method="post" action="product-delete.php">
             <td><button type="submit" name="delete" class="btn btn-danger">Rimuovi</button>
                 <input type="hidden" name="id_prodotto" value="<[id_prodotto]>"></td>
+            </form>
         </tr>
         <[/foreach]>
     </table>
-</form>
