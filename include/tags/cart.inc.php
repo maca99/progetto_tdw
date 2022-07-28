@@ -63,6 +63,16 @@
                         $main->setContent("prezzo", $data['prezzo']);
                         $main->setContent("quantity",$item['quantity']);
 
+
+                        $img=$mysqli->query("SELECT * FROM immagine WHERE prodotto_idprodotto='".$id."' LIMIT 1");
+                        if(mysqli_num_rows($img)!=1){
+                            $main->setContent("immagine","<img width='100' height='100' src='dhtml/img/not_found.png'>");
+                        }else{
+                            $res=mysqli_fetch_array($img);
+                            $tag=$res['idimmagine'];
+                            $main->setContent("immagine","<img width='100' height='100' src=show.php?id=".$tag.">");
+                        }
+
                         $totale=$totale+($item['quantity']*$data['prezzo']);
                     }
                 }

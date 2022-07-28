@@ -10,10 +10,10 @@
 
    
     //new products
-    $result=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND nome_categoria='Laptops' order by prodotto.data ASC LIMIT 10");
-    $result2=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND nome_categoria='Smartphone' order by prodotto.data ASC LIMIT 10");
-    $result3=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND nome_categoria='Fotocamere' order by prodotto.data ASC LIMIT 10");
-    $result4=$mysqli->query("SELECT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND nome_categoria='Accessori' order by prodotto.data ASC LIMIT 10");
+    $result=$mysqli->query("SELECT DISTINCT  id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.id_categoria=1 order by prodotto.data ASC LIMIT 10");
+    $result2=$mysqli->query("SELECT DISTINCT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.id_categoria=2 order by prodotto.data ASC LIMIT 10");
+    $result3=$mysqli->query("SELECT DISTINCT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.id_categoria=3 order by prodotto.data ASC LIMIT 10");
+    $result4=$mysqli->query("SELECT DISTINCT id_prodotto FROM prodotto,categoria WHERE prodotto.id_categoria=categoria.id_categoria AND categoria.id_categoria=4 order by prodotto.data ASC LIMIT 10");
 
     while($row=mysqli_fetch_array($result)){
         $body->setContent("product1",$utility->product_icon($row['id_prodotto']));

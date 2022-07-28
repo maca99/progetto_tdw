@@ -42,7 +42,7 @@
 
 			$main= new Template("dhtml/prodotto_icon.html");
 
-			$oid=$mysqli->query("SELECT * FROM prodotto,categoria WHERE prodotto.id_prodotto=$id AND prodotto.id_categoria=categoria.id_categoria");
+			$oid=$mysqli->query("SELECT * FROM prodotto,categoria WHERE prodotto.id_prodotto='".$id."' AND prodotto.id_categoria=categoria.id_categoria");
 
 			if(mysqli_num_rows($oid) != 1){
 				echo("prodotto non trovato");
