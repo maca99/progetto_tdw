@@ -6,9 +6,20 @@
     $main= new Template("dhtml/blank-min.html");
 
     $search = mysqli_real_escape_string($mysqli,$_REQUEST['search']);
-
-    $result = $mysqli->query("SELECT * FROM prodotto LEFT JOIN (categoria) ON( prodotto.id_categoria=categoria.id_categoria) WHERE nome LIKE '".$search."%'");
-    $indice=1;button
+    if($_POST['category'] != 0){
+        $category=$_POST['category'];
+    }
+    if(isset($category)){
+        echo $category;
+        $result = $mysqli->query("SELECT * FROM prodotto LEFT JOIN (categoria) ON( prodotto.id_categoria=categoria.id_categoria) WHERE prodotto.id_categoria='".$category."' AND nome LIKE '".$search."%'");
+        if(!$result){
+            echo $mysqli->error;
+        }
+    }else{
+        $result = $mysqli->query("SELECT * FROM prodotto LEFT JOIN (categoria) ON( prodotto.id_categoria=categoria.id_categoria) WHERE nome LIKE '".$search."%'");
+    }
+    
+    $indice=1;
     if(mysqli_num_rows($result)==0){
         $body = new Template("dhtml/fallied-search.html");
         $body->setContent("ricerca",$search);
