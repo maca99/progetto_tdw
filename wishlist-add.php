@@ -3,8 +3,8 @@ session_start();
     require "include/dbms.inc.php";
     require "include/auth.inc.php";
     
-    $product=isset($_REQUEST['product'])? $_REQUEST['product']:"";
-    $action=$_REQUEST['action'];
+    $product=isset($_REQUEST['product_code'])? $_REQUEST['product_code']:"";
+
 
     $oid=$mysqli->query("SELECT * FROM prodotto WHERE id_prodotto=$product");
     if(mysqli_num_rows($oid)!=1){
