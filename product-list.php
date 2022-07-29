@@ -11,6 +11,7 @@
     while($row=mysqli_fetch_array($result)){
         $body->setContent("id_prodotto",$row['id_prodotto']);
         $body->setContent("nome",$row['nome']);
+        $body->setContent("id_categoria",$row['id_categoria']);
         $body->setContent("categoria",$row['nome_categoria']);
 
         //immagine

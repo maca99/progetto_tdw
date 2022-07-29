@@ -184,9 +184,13 @@
 
             $main= new Template("dhtml/webarch/option.html");
                 $oid=$mysqli->query("SELECT nome_colore AS title, color.id_color AS valore FROM prodotto_has_color ,color WHERE prodotto_has_color.id_prodotto=$id AND prodotto_has_color.id_color=color.id_color ");
-                while($data=$oid->fetch_array()) {
+                if(mysqli_num_rows($oid)>1){
+                    while($data=$oid->fetch_array()) {
                     $main->setContent("title", $data['title']);
                     $main->setContent("value", $data['valore']);
+                }      
+               }else{
+                return ;
                }
                return $main->get();
             }

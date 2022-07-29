@@ -71,15 +71,12 @@
 </form>
 
     <ul class="product-btns">
-        <form action="update-wishlist.php" method="get">
-            <input type="hidden" name="product" value="<[id_prodotto]>">
-        <button  class="add-to-wishlist" value="add" name="action"><i class="fa fa-heart-o"></i> add to wishlist</button>
-        </form>
+        <a href="wishlist-add.php?product_code=<[id_prodotto]>"><i class="fa fa-heart-o"></i>   Add to wishlist</a>
     </ul>
 
     <ul class="product-links">
         <li>Category:</li>
-        <li><a href="#"><[nome_categoria]></a></li>
+        <li><a href="./categoria.php?category=<[id_categoria]>"><[nome_categoria]></a></li>
     </ul>
 
     <ul class="product-links">
