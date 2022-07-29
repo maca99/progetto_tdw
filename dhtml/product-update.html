@@ -1,89 +1,82 @@
+
 <h3>Modifica <span class="semi-bold">Prodotto</span></h3>
+   <label class="form-label"><[error]></label>
+      <form class="notify" method="POST" action="product-update.php" enctype="multipart/form-data">
+         <input type="hidden" name="step" id="step" value="1">
+          <div class="grid-body no-border"> <br>
+              <div class="row">
+                    <div class="col-md-8 col-sm-8 col-xs-8">
 
-<form class="notify" method="POST" action="product-add.php" enctype="multipart/form-data">
-  <input type="hidden" name="step" id="step" value="1">
-  <div class="grid-body no-border"> <br>
-    <div class="row">
-      <div class="col-md-8 col-sm-8 col-xs-8">
+                      <div class="form-group" >
+                        <label class="form-label">Categoria</label>
+                        <div>
+                          <select class="input-select"name="categoria" >
+                            <[categoria]>
+                          </select>
+                        </div>
+                      </label>
+                      </div>
 
-        <div class="form-group">
-          <label class="form-label">Nome</label>
-          <span class="help">es.: "Computer, Auricolari..."</span>
-          <div class="controls">
-            <input type="text" name="nome" id="nome" class="form-control">
-          </div>
-        </div>
+                      <div class="form-group">
+                        <label class="form-label">Nome</label>
+                        <span class="help">es.: "Computer, Auricolari..."</span>
+                        <div class="controls">
+                          <input type="text" name="nome" value="<[nome]>" id="nome" class="form-control">
+                        </div>
+                      </div>
 
-        <div class="form-group">
-          <label class="form-label">Prezzo</label>
-          <span class="help">€€€</span>
-          <div class="controls">
-            <input type="number" name="prezzo" id="prezzo" class="form-control">
-          </div>
-        </div>
+                      <div class="form-group">
+                        <label class="form-label">Prezzo</label>
+                        <span class="help">€€€</span>
+                        <div class="controls">
+                          <input type="text" name="prezzo" value="<[prezzo]>" id="prezzo" class="form-control"  >
+                        </div>
+                      </div>
 
-        <div class="form-group">
-          <label class="form-label">Descrizione</label>
-          <span class="help"></span>
-          <div class="controls">
-            <textarea id="descrizione" name="descrizione" class="form-control" rows="10"></textarea>                    
-          </div>
-        </div>  
-        
-        <div class="form-group">
-          <label class="form-label">Descrizione breve</label>
-          <span class="help"></span>
-          <div class="controls">
-            <textarea id="descrizione_breve" name="descrizione_breve" class="form-control" rows="2"></textarea>                    
-          </div>
-        </div>
+                      <div class="form-group">
+                        <label class="form-label">Descrizione</label>
+                        <span class="help"></span>
+                        <div class="textarea">
+                          <textarea id="descrizione" name="descrizione"  class="form-control" rows="10" style="resize:none"><[descrizione]></textarea>                    
+                        </div>
+                      </div>  
+                      
+                      <div class="form-group">
+                        <label class="form-label">Descrizione breve</label>
+                        <span class="help"></span>
+                        <div class="textarea">
+                          <textarea id="descrizione_breve" name="descrizione_breve"  class="form-control" rows="2" style="resize:none"><[descrizione_breve]></textarea>                    
+                        </div>
+                      </div>
 
-        <div class="form-group">
-          <label class="form-label">Dettagli</label>
-          <span class="help"></span>
-          <div class="controls">
-            <textarea id="dettagli" name="dettagli" class="form-control" rows="2"></textarea>                    
-          </div>
-        </div>
+                      <div class="form-group">
+                        <label class="form-label">Dettagli</label>
+                        <span class="help"></span>
+                        <div class="controls">
+                          <textarea id="dettagli" name="dettagli" class="form-control"  rows="5" style="resize:none"><[dettagli]></textarea>                    
+                        </div>
+                      </div>
+                      <h3>Aggiungi Immagine</h3>
+                      <div class="form-group">
+                        <label class="form-label">Inserisci le immagini del prodotto (MAX 16MB):</label>
+                        <input type="file" id = "img" name="userImage" accept="image/*" onchange="loadFile(event)">
+                      </div>
 
-        <div class="form-group">
-          <label class="form-label">Categoria</label>
-            <select class="input-select"name="categoria" >
-              <[categoria::category library="utility"]>
-            </select>
-        </label>
-        </div>
-
-        <div class="form-group">
-            <label>Inserisci le immagini del prodotto:</label>
-
-            <input type="file" id = "img" name="userImage" accept="image/*" onchange="loadFile(event)">
-            <img id="output"/>
-            <script>
-              var loadFile = function(event) {
-                var output = document.getElementById('output');
-                output.src = URL.createObjectURL(event.target.files[0]);
-                output.onload = function() {
-                  URL.revokeObjectURL(output.src) // free memory
-                }
-              };
-            </script>
-        </div>
-
-
-        <div class="form-group">
+                      <div class="form-group">
       
-          <div class="controls">
-            <button class="btn btn-primary" type="submit" name="submit" value="">Aggiungi</button>
-
+                        <div class="controls">
+                          <button class="btn btn-primary" type="submit" name="submit" value="">Aggiungi</button>
+              
+                        </div>
+                      </div>
+                    
+                    </div>
+                  </div>
+                </div>
+              </form>
           </div>
         </div>
-      
       </div>
-    </div>
-  </div>
-</form>
 </div>
-</div>
-</div>
-</div>
+ 
+
